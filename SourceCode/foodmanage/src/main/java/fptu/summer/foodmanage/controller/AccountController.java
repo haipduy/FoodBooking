@@ -89,7 +89,7 @@ public class AccountController {
             return new ResponseEntity(accountEntity, HttpStatus.OK);
         }
 
-        return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        return null;
     }
 
 
