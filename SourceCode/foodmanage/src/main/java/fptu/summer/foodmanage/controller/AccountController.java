@@ -20,9 +20,12 @@ public class AccountController {
     @GetMapping("accounts")
     public ResponseEntity getAllCustomer() {
 
-        List<AccountEntity> listCus = ar.findAll();
+        List<AccountEntity> listCus = ar.findAllByStatus(1);
+        if(listCus!=null){
+            return new ResponseEntity(listCus, HttpStatus.OK);
+        }
 
-        return new ResponseEntity(listCus, HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 
     @PostMapping("account/login")
@@ -57,7 +60,7 @@ public class AccountController {
         return ResponseEntity.ok(account);
     }
 
-    @PutMapping("account/updateinfor")
+    @PutMapping("account/update")
     public ResponseEntity updateAccountById(@RequestBody AccountEntity account) {
         String username = account.getUserCode();
 
@@ -75,11 +78,10 @@ public class AccountController {
        return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 
-    @PutMapping("account/changestatus")
-    public ResponseEntity changerStatus(@RequestBody AccountEntity account) {
-        String username = account.getUserCode();
+    @PutMapping("account/changestatus/{id}")
+    public ResponseEntity changerStatus(@PathVariable String id) {
 
-        AccountEntity accountEntity = ar.findAccountEntitiesByUserCode(username);
+        AccountEntity accountEntity = ar.findAccountEntitiesByUserCode(id);
 
         if(accountEntity != null){
             accountEntity.setStatus(0);
@@ -87,7 +89,7 @@ public class AccountController {
             return new ResponseEntity(accountEntity, HttpStatus.OK);
         }
 
-        return null;
+        return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 
 

@@ -10,7 +10,7 @@ import java.util.List;
 public interface AccountReponsitory extends JpaRepository<AccountEntity,String> {
 
     // select all account from DB
-    List<AccountEntity> findAll();
+    List<AccountEntity> findAllByStatus(int status);
 
     // find Account by user code
     AccountEntity findAccountEntitiesByUserCode(String username);
