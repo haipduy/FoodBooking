@@ -4,6 +4,7 @@ import fptu.summer.foodmanage.entity.ProductEntity;
 import fptu.summer.foodmanage.reponsitory.CategoryReponsitory;
 import fptu.summer.foodmanage.reponsitory.ProductReponsitory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,9 +15,8 @@ import java.util.List;
 public class ProductController {
 
     @Autowired
+
     private ProductReponsitory productReponsitory;
-    @Autowired
-    private CategoryReponsitory categoryReponsitory;
 
     @GetMapping("/products")
     public ResponseEntity getAllProductByStatus() {
@@ -37,9 +37,9 @@ public class ProductController {
         int id = product.getCategoryId();
 
         boolean checkProductCode = productReponsitory.existsDistinctByProCode(productCode);
-        boolean checkCategory = categoryReponsitory.existsDistinctByCategoryId(id);
 
-        if (checkProductCode == true || checkCategory == true) {
+
+        if (checkProductCode) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
         product.setProStatus(1);

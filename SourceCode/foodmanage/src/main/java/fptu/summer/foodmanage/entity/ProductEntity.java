@@ -9,7 +9,8 @@ public class ProductEntity {
     private String ProCode;
     private String StoreId;
     private String ProName;
-    private int ProPrice;
+    private float ProPrice;
+    private float priceDiscount;
     private String ProImage;
     private int ProQuantity;
     private String ProDescription;
@@ -51,15 +52,28 @@ public class ProductEntity {
         ProName = proName;
     }
 
+
+
     @Basic
     @Column(name = "ProPrice")
-    public int getProPrice() {
+    public float getProPrice() {
         return ProPrice;
     }
 
-    public void setProPrice(int proPrice) {
+    public void setProPrice(float proPrice) {
         ProPrice = proPrice;
     }
+
+    @Basic
+    @Column(name = "PriceDiscount")
+    public float getPriceDiscount() {
+        return priceDiscount;
+    }
+
+    public void setPriceDiscount(float priceDiscount) {
+        this.priceDiscount = priceDiscount;
+    }
+
     @Basic
     @Column(name = "ProImage")
     public String getProImage() {

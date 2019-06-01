@@ -1,6 +1,7 @@
 package fptu.summer.foodmanage.controller;
 
 
+import fptu.summer.foodmanage.entity.CategoryEntity;
 import fptu.summer.foodmanage.reponsitory.CategoryReponsitory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +16,6 @@ public class CategoryController {
     @Autowired
     CategoryReponsitory categoryReponsitory;
 
-//    @GetMapping
-//    public ResponseEntity getAll
 
 
 }

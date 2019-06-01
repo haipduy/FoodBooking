@@ -13,29 +13,40 @@ import java.util.List;
 @RestController
 public class StoreController {
     @Autowired
-    private  StoreReponsitory storeReponsitory;
+    private StoreReponsitory storeReponsitory;
 
 
     @GetMapping("/stores")
-    public ResponseEntity getAllStore(){
+    public ResponseEntity getAllStore() {
 
         List<StoreEntity> storesList = storeReponsitory.findAllByStoreStatus(1);
-        if(storesList!=null){
+        if (storesList != null) {
             return new ResponseEntity(storesList, HttpStatus.OK);
         }
 
-        return  new ResponseEntity(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 
+    @GetMapping("/stores/storename/{id}")
+    public ResponseEntity getStoreNameById(@PathVariable String id) {
+
+        String storesName = storeReponsitory.findByStoreName(id);
+        if (storesName != null) {
+            return new ResponseEntity(storesName, HttpStatus.OK);
+        }
+
+        return new ResponseEntity(HttpStatus.BAD_REQUEST);
+    }
+
+
     @PostMapping("/store/createstore")
-    public ResponseEntity createNewStore(@RequestBody StoreEntity store){
+    public ResponseEntity createNewStore(@RequestBody StoreEntity store) {
 
-        String storeCode  =  store.getStoreCode();
+        String storeCode = store.getStoreCode();
 
 
-
-        if(storeReponsitory.existsDistinctByStoreCode(storeCode) == true){
-            return  new ResponseEntity(HttpStatus.BAD_REQUEST);
+        if (storeReponsitory.existsDistinctByStoreCode(storeCode) == true) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
         store.setStoreStatus(1);
         storeReponsitory.save(store);
@@ -47,12 +58,12 @@ public class StoreController {
 
         StoreEntity store = storeReponsitory.findByStoreCode(id);
 
-        if(store!= null){
+        if (store != null) {
             store.setStoreStatus(0);
             storeReponsitory.save(store);
-            return  new ResponseEntity(HttpStatus.OK);
+            return new ResponseEntity(HttpStatus.OK);
         }
-        return  new ResponseEntity(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 
 }
