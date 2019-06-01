@@ -10,5 +10,6 @@ public interface CategoryReponsitory extends JpaRepository<CategoryEntity, Integ
 
     boolean existsDistinctByCategoryId(int id);
 
+    CategoryEntity  findByCategoryId(int id);
 
 }

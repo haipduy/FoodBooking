@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Store", schema = "dbo", catalog = "FoodSystem")
 public class StoreEntity {
-    private String storeCode;
+    private String storeId;
     private String storeName;
     private String storeAddress;
     private String storeImage;
@@ -17,13 +17,13 @@ public class StoreEntity {
     }
 
     @Id
-    @Column(name = "StoreCode")
-    public String getStoreCode() {
-        return storeCode;
+    @Column(name = "StoreId")
+    public String getStoreId() {
+        return storeId;
     }
 
-    public void setStoreCode(String storeCode) {
-        this.storeCode = storeCode;
+    public void setStoreId(String storeId) {
+        this.storeId = storeId;
     }
 
 

@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 public class StoreController {
+
     @Autowired
     private StoreReponsitory storeReponsitory;
 
@@ -42,10 +43,10 @@ public class StoreController {
     @PostMapping("/store/createstore")
     public ResponseEntity createNewStore(@RequestBody StoreEntity store) {
 
-        String storeCode = store.getStoreCode();
+        String storeCode = store.getStoreId();
 
 
-        if (storeReponsitory.existsDistinctByStoreCode(storeCode) == true) {
+        if (storeReponsitory.existsDistinctByStoreId(storeCode) == true) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
         store.setStoreStatus(1);
@@ -56,7 +57,7 @@ public class StoreController {
     @PutMapping("/store/changestatus/{id}")
     public ResponseEntity changeStatusStore(@PathVariable String id) {
 
-        StoreEntity store = storeReponsitory.findByStoreCode(id);
+        StoreEntity store = storeReponsitory.findByStoreId(id);
 
         if (store != null) {
             store.setStoreStatus(0);

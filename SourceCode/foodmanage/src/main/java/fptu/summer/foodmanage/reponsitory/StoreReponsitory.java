@@ -11,9 +11,9 @@ public interface StoreReponsitory extends JpaRepository<StoreEntity, String> {
 
     List<StoreEntity> findAllByStoreStatus(int status);
 
-    StoreEntity findByStoreCode(String storeCode);
+    StoreEntity findByStoreId(String storeCode);
 
-    boolean existsDistinctByStoreCode(String storeCode);
+    boolean existsDistinctByStoreId(String storeCode);
 
     String findByStoreName(String storeCode);
 

@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Category", schema = "dbo", catalog = "FoodSystem")
 public class CategoryEntity {
-    private String categoryId;
+    private int categoryId;
     private String categoryName;
 
     public CategoryEntity() {
@@ -13,11 +13,11 @@ public class CategoryEntity {
 
     @Id
     @Column(name = "CategoryId")
-    public String getCategoryId() {
+    public int getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(String categoryId) {
+    public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
     }
 

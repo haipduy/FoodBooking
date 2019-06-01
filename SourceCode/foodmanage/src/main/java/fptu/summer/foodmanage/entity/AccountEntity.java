@@ -6,9 +6,8 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Account", schema = "dbo", catalog = "FoodSystem")
-
 public class AccountEntity {
-    private String userCode;
+    private String userId;
     private String userPassword;
     private String userName;
     private String userAddress;
@@ -20,15 +19,16 @@ public class AccountEntity {
     public AccountEntity() {
     }
 
+
     @Id
-    @Column(name = "UserCode")
-    public String getUserCode() {
-        return userCode;
+    @Column(name = "UserId")
+    public String getUserId() {
+        return userId;
     }
 
 
-    public void setUserCode(String userCode) {
-        this.userCode = userCode;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     @Basic

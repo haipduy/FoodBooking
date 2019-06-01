@@ -1,13 +1,11 @@
-package fptu.summer.foodmanage.entity;
+package fptu.summer.foodmanage.responsemodel;
 
-import javax.persistence.*;
+import fptu.summer.foodmanage.entity.CategoryEntity;
+import fptu.summer.foodmanage.entity.StoreEntity;
 
-
-@Entity
-@Table(name = "Product", schema = "dbo", catalog = "FoodSystem")
-public class ProductEntity {
+public class ProductResponseModel {
     private String proId;
-    private String storeId;
+    private String storeName;
     private String proName;
     private float proPrice;
     private float priceDiscount;
@@ -15,13 +13,22 @@ public class ProductEntity {
     private int proQuantity;
     private String proDescription;
     private int proStatus;
-    private int categoryId;
+    private CategoryEntity category;
 
-    public ProductEntity() {
+
+    public ProductResponseModel(String proId, String storeName, String proName, float proPrice, float priceDiscount, String proImage, int proQuantity, String proDescription, int proStatus, CategoryEntity category) {
+        this.proId = proId;
+        this.storeName = storeName;
+        this.proName = proName;
+        this.proPrice = proPrice;
+        this.priceDiscount = priceDiscount;
+        ProImage = proImage;
+        this.proQuantity = proQuantity;
+        this.proDescription = proDescription;
+        this.proStatus = proStatus;
+        this.category = category;
     }
 
-    @Id
-    @Column(name = "ProId")
     public String getProId() {
         return proId;
     }
@@ -30,18 +37,14 @@ public class ProductEntity {
         this.proId = proId;
     }
 
-    @Basic
-    @Column(name = "StoreId")
-    public String getStoreId() {
-        return storeId;
+    public String getStoreName() {
+        return storeName;
     }
 
-    public void setStoreId(String storeId) {
-        this.storeId = storeId;
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
     }
 
-    @Basic
-    @Column(name = "ProName")
     public String getProName() {
         return proName;
     }
@@ -50,8 +53,6 @@ public class ProductEntity {
         this.proName = proName;
     }
 
-    @Basic
-    @Column(name = "ProPrice")
     public float getProPrice() {
         return proPrice;
     }
@@ -60,8 +61,6 @@ public class ProductEntity {
         this.proPrice = proPrice;
     }
 
-    @Basic
-    @Column(name = "PriceDiscount")
     public float getPriceDiscount() {
         return priceDiscount;
     }
@@ -70,8 +69,6 @@ public class ProductEntity {
         this.priceDiscount = priceDiscount;
     }
 
-    @Basic
-    @Column(name = "ProImage")
     public String getProImage() {
         return ProImage;
     }
@@ -80,8 +77,6 @@ public class ProductEntity {
         ProImage = proImage;
     }
 
-    @Basic
-    @Column(name = "ProQuantity")
     public int getProQuantity() {
         return proQuantity;
     }
@@ -90,8 +85,6 @@ public class ProductEntity {
         this.proQuantity = proQuantity;
     }
 
-    @Basic
-    @Column(name = "ProDescription")
     public String getProDescription() {
         return proDescription;
     }
@@ -100,8 +93,6 @@ public class ProductEntity {
         this.proDescription = proDescription;
     }
 
-    @Basic
-    @Column(name = "ProStatus")
     public int getProStatus() {
         return proStatus;
     }
@@ -110,13 +101,11 @@ public class ProductEntity {
         this.proStatus = proStatus;
     }
 
-    @Basic
-    @Column(name = "CategoryId")
-    public int getCategoryId() {
-        return categoryId;
+    public CategoryEntity getCategory() {
+        return category;
     }
 
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
+    public void setCategory(CategoryEntity category) {
+        this.category = category;
     }
 }

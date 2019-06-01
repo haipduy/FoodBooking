@@ -34,7 +34,7 @@ public class AccountController {
         String username = account.get("username");
         String password = account.get("password");
 
-        AccountEntity accountEntity = ar.findAccountEntitiesByUserCode(username);
+        AccountEntity accountEntity = ar.findAccountEntitiesByUserId(username);
         if(accountEntity != null){
             if(accountEntity.getStatus() == 1 && accountEntity.getUserPassword().equals(password)){
                 return new ResponseEntity(accountEntity, HttpStatus.OK);
@@ -45,9 +45,9 @@ public class AccountController {
     @PostMapping("account/create")
     public ResponseEntity createNewAccount(@RequestBody  AccountEntity account){
 
-        String username = account.getUserCode();
+        String username = account.getUserId();
 
-        if(ar.existsDistinctByUserCode(username) == true ){
+        if(ar.existsDistinctByUserId(username) == true ){
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
 
@@ -62,9 +62,9 @@ public class AccountController {
 
     @PutMapping("account/update")
     public ResponseEntity updateAccountById(@RequestBody AccountEntity account) {
-        String username = account.getUserCode();
+        String username = account.getUserId();
 
-        AccountEntity accountEntity = ar.findAccountEntitiesByUserCode(username);
+        AccountEntity accountEntity = ar.findAccountEntitiesByUserId(username);
 
         if(accountEntity != null){
             accountEntity.setUserName(account.getUserName());
@@ -81,7 +81,7 @@ public class AccountController {
     @PutMapping("account/changestatus/{id}")
     public ResponseEntity changerStatus(@PathVariable String id) {
 
-        AccountEntity accountEntity = ar.findAccountEntitiesByUserCode(id);
+        AccountEntity accountEntity = ar.findAccountEntitiesByUserId(id);
 
         if(accountEntity != null){
             accountEntity.setStatus(0);

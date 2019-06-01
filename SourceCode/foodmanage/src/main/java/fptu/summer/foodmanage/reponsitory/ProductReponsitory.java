@@ -13,12 +13,12 @@ public interface ProductReponsitory extends JpaRepository<ProductEntity, String>
 
     ProductEntity findByProNameContaining(String searchValue);
 
-    ProductEntity findByProCode(String productCode);
+    ProductEntity findByProId(String productCode);
 
 //    List<ProductEntity> findAll();
 
     List<ProductEntity> findAllByProStatus(int status);
 
-    boolean existsDistinctByProCode(String proCode);
+    boolean existsDistinctByProId(String proCode);
 
 }

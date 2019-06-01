@@ -13,9 +13,9 @@ public interface AccountReponsitory extends JpaRepository<AccountEntity,String> 
     List<AccountEntity> findAllByStatus(int status);
 
     // find Account by user code
-    AccountEntity findAccountEntitiesByUserCode(String username);
+    AccountEntity findAccountEntitiesByUserId(String username);
 
     // check account is exist
-    boolean existsDistinctByUserCode(String username);
+    boolean existsDistinctByUserId(String username);
 
 }
