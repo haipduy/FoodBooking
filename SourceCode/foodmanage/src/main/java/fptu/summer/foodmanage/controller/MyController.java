@@ -12,6 +12,7 @@ import java.io.IOException;
 
 @RestController
 public class MyController {
+
     final static  String DEFAULT_IMAGE_PATH = "default.png";
     @GetMapping("/{path}")
     public ResponseEntity<InputStreamResource> getImage(@PathVariable(required = true) String path) throws IOException {
