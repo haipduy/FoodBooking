@@ -26,7 +26,7 @@ import fptu.summer.foodcourseapp.remote.APIUtils;
 import fptu.summer.foodcourseapp.remote.RetrofitClient;
 import retrofit2.Retrofit;
 
-public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolderProduct>{
+public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolderProduct> {
     // la actiivity hien hanh
     private Context context;
     //data json
@@ -44,7 +44,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolderProduct>{
     // mapping 1 product for litsize()
     public ViewHolderProduct onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.product_item,viewGroup,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.product_item, viewGroup, false);
 
         return new ViewHolderProduct(view);
     }
@@ -55,41 +55,43 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolderProduct>{
         viewHolderProduct.setData(productList.get(i));
     }
 
-    @Override
-    public int getItemCount() {
-        return productList.size();
-    }
-
-    void filer(String value){
+    void filer(String value) {
         productList.clear();
-        for (int i = 0 ; i < copyProductList.size();i++){
-            if(copyProductList.get(i).getProName().toLowerCase().contains(value.toLowerCase())){
+        for (int i = 0; i < copyProductList.size(); i++) {
+            if (copyProductList.get(i).getProName().toLowerCase().contains(value.toLowerCase())) {
                 productList.add(copyProductList.get(i));
             }
         }
         notifyDataSetChanged();
     }
 
-    class ViewHolderProduct extends RecyclerView.ViewHolder{
+
+    @Override
+    public int getItemCount() {
+        return productList.size();
+    }
+
+    class ViewHolderProduct extends RecyclerView.ViewHolder {
         private ImageView imageView;
-        private TextView txtProductName,txtStoreName,txtPrice,txtPriceDiscount;
+        private TextView txtProductName, txtStoreName, txtPrice, txtPriceDiscount;
 
         public ViewHolderProduct(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.image);
             txtProductName = itemView.findViewById(R.id.txtProductName);
             txtStoreName = itemView.findViewById(R.id.txtStoreName);
-            txtPrice= itemView.findViewById(R.id.txtPrice);
+            txtPrice = itemView.findViewById(R.id.txtPrice);
             txtPriceDiscount = itemView.findViewById(R.id.txtPriceDiscount);
         }
-        void setData(Product product){
-            Glide.with(context).load(RetrofitClient.baseUrl+product.getProImage()).into(imageView);
-            txtProductName.setText(productList.indexOf(product)+"."+product.getProName());
+
+        void setData(Product product) {
+            Glide.with(context).load(RetrofitClient.baseUrl + product.getProImage()).into(imageView);
+            txtProductName.setText(productList.indexOf(product) + "." + product.getProName());
             txtStoreName.setText(product.getStoreName());
 
             txtPriceDiscount.setText(product.getPriceDiscount() + "");
 
-            String htmlcontent = "<strike>" + product.getProPrice() +"</strike>";
+            String htmlcontent = "<strike>" + product.getProPrice() + "</strike>";
 
             txtPrice.setText(android.text.Html.fromHtml(htmlcontent));
 

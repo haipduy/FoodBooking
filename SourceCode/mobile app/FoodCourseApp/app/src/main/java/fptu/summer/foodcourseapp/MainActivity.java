@@ -21,7 +21,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
-    private TextView mTextMessage;
     private RecyclerView listView;
     private ProductService pService;
     private SearchView searchView;
@@ -33,19 +32,21 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         setContentView(R.layout.activity_main);
         searchView = findViewById(R.id.search);
         searchView.setOnQueryTextListener(this);
-        listView = findViewById(R.id.listView);
-        mTextMessage = findViewById(R.id.message);
 
+        listView = findViewById(R.id.listView);
         //Set Data
-                pService = APIUtils.getSOService();
+        pService = APIUtils.getSOService();
         // lay service ra,
         pService.getProducts().enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 if(response.isSuccessful()) {
-                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplication(),LinearLayoutManager.VERTICAL,false);
+                    LinearLayoutManager linearLayoutManager
+                            = new LinearLayoutManager(getApplication(),LinearLayoutManager.VERTICAL,false);
                     listView.setLayoutManager(linearLayoutManager);
-                     adapter = new Adapter(getApplicationContext(),response.body());
+
+                    adapter = new Adapter(getApplicationContext(),response.body());
+
                     listView.setAdapter(adapter);
                 }else {
                     int statusCode  = response.code();

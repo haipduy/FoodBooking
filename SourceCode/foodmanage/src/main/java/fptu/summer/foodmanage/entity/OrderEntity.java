@@ -1,6 +1,7 @@
 package fptu.summer.foodmanage.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "Order", schema = "dbo", catalog = "FoodSystem")
@@ -11,20 +12,25 @@ public class OrderEntity {
     private String orderDate;
     private float total;
     private String notes;
+    List<DetailOrderEntity> detailList;
+
 
     public OrderEntity() {
     }
 
-    public OrderEntity(int orderId, String cusId, String orderDate, float total, String notes) {
+    public OrderEntity(int orderId, String cusId, String orderDate, float total, String notes, List<DetailOrderEntity> detailList) {
         this.orderId = orderId;
         this.cusId = cusId;
         this.orderDate = orderDate;
         this.total = total;
         this.notes = notes;
+        this.detailList = detailList;
     }
 
     @Id
+
     @Column(name = "OrderId")
+    @GeneratedValue(strategy = GenerationType.TABLE)
     public int getOrderId() {
         return orderId;
     }
@@ -72,5 +78,10 @@ public class OrderEntity {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+
+    public void setDetailList(List<DetailOrderEntity> detailList) {
+        this.detailList = detailList;
     }
 }

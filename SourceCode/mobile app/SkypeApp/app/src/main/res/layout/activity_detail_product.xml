@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolBar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+    </android.support.v7.widget.Toolbar>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:scaleType="centerCrop"
+            android:id="@+id/imgProduct"
+            android:layout_width="match_parent"
+            android:layout_height="260dp"
+            android:src="@drawable/pic1" />
+        <TextView
+            android:id="@+id/txtProductName"
+            android:textSize="24dp"
+            android:text="Product name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/txtStore"
+            android:textSize="18dp"
+            android:text="Store"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/txtPriceDiscount"
+            android:textSize="20dp"
+            android:text="Price Discount"
+            android:textColor="@color/colorRed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/txtPrice"
+            android:textSize="16dp"
+            android:text="price"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/txtDescription"
+            android:textSize="18dp"
+            android:text="Description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/btnAddToCart"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="Add to cart"
+            android:background="@color/colorPrimary"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:onClick="clickToAddToCart"/>
+        <Button
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="View cart"
+            android:background="@color/colorPrimary"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:onClick="clickToViewCart"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

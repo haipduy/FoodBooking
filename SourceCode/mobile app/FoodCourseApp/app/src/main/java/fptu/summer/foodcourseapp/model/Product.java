@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 //model
 
 public class Product {
-    // lay id ben trong chuoi json
+
     @SerializedName("proId")
     @Expose
     private String id;
