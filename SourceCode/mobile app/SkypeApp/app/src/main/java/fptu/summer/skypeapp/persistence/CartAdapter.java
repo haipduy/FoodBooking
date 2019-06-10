@@ -2,11 +2,8 @@ package fptu.summer.skypeapp.persistence;
 
 import android.content.Context;
 
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +18,7 @@ import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import java.util.List;
 
 import fptu.summer.skypeapp.CartActivity;
-import fptu.summer.skypeapp.DetailProductActivity;
+import fptu.summer.skypeapp.service.CallBackTotal;
 import fptu.summer.skypeapp.R;
 import fptu.summer.skypeapp.model.Cart;
 import fptu.summer.skypeapp.remote.CartDatabase;
@@ -30,12 +27,14 @@ import fptu.summer.skypeapp.remote.CartDatabase;
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolderCart> {
     private CartDatabase cartDatabase;
     // la actiivity hien hanh
-    private Context context;
+    private CartActivity context;
     //data json
     List<Cart> listCart;
+    CallBackTotal callBackTotal;
 
     public CartAdapter(Context context, List<Cart> listCart) {
-        this.context = context;
+        this.callBackTotal = callBackTotal;
+        this.context = (CartActivity) context;
         this.listCart = listCart;
     }
 
@@ -82,14 +81,26 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolderCart
                 @Override
                 public void onClick(View v) {
                     deleteItem(cart);
-//                    Intent intent = new Intent(context,CartActivity.class);
-//                    intent.setFlags(intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                    context.startActivity(intent);
+                    listCart.remove(cart);
+                    notifyDataSetChanged();
+                    context.udpatePrice(listCart);
 
+                }
+            });
+            // update quantity
+            btnQuantity.setOnValueChangeListener(new ElegantNumberButton.OnValueChangeListener() {
+                @Override
+                public void onValueChange(ElegantNumberButton view, int oldValue, int newValue) {
+                    int quanti =Integer.parseInt(btnQuantity.getNumber()) ;
+                    cart.setQuantity(quanti);
+                    btnQuantity.setNumber(cart.quantity + "");
+                    notifyDataSetChanged();
+                    context.udpatePrice(listCart);
                 }
             });
         }
     }
+
 
     private void deleteItem(final Cart  cart){
         cartDatabase = CartDatabase.getInstance(context);

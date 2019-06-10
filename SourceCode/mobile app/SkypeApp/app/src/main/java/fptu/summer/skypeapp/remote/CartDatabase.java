@@ -8,18 +8,18 @@ import android.content.Context;
 import fptu.summer.skypeapp.model.Cart;
 import fptu.summer.skypeapp.service.CartDAO;
 
-@Database(entities = {Cart.class},exportSchema = false, version = 1)
+@Database(entities = {Cart.class}, exportSchema = false, version = 1)
 public abstract class CartDatabase extends RoomDatabase {
     private static final String DB_NAME = "Cart";
     private static CartDatabase instance;
 
-    public static synchronized CartDatabase getInstance(Context context){
-        if(instance == null){
+    public static synchronized CartDatabase getInstance(Context context) {
+        if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(), CartDatabase.class, DB_NAME)
                     .fallbackToDestructiveMigration().build();
 
         }
-        return  instance;
+        return instance;
     }
 
     public abstract CartDAO cartDAO();
