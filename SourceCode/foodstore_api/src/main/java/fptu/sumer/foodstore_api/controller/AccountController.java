@@ -1,14 +1,13 @@
 package fptu.sumer.foodstore_api.controller;
 
 import fptu.sumer.foodstore_api.entity.AccountEntity;
-import fptu.sumer.foodstore_api.reponsitory.AccountReponsitory;
+import fptu.sumer.foodstore_api.reponsitory.AccountRepository;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +17,7 @@ import java.util.Map;
 public class AccountController {
 
     @Autowired
-    AccountReponsitory ar;
+    AccountRepository ar;
 
     @ApiOperation(value = "View a list of available account", response = List.class)
     @ApiResponses(value = {
@@ -37,18 +36,17 @@ public class AccountController {
     }
 
     @ApiOperation(value = "Check login by username and password")
-    @GetMapping("/account/login")
+    @PostMapping("/account/login")
     public ResponseEntity<AccountEntity> checklogin(
             @ApiParam(value = "Check login by username and password", required = true) @RequestBody Map<String, String> account
     ) {
         String username = account.get("username");
         String password = account.get("password");
 
-        AccountEntity accountEntity = ar.findAccountEntitiesByUserId(username);
+        AccountEntity accountEntity = ar.findAccountEntitiesByUserIdAndUserPasswordAndStatus(username,password,1);
+
         if (accountEntity != null) {
-            if (accountEntity.getStatus() == 1 && accountEntity.getUserPassword().equals(password)) {
-                return new ResponseEntity(accountEntity, HttpStatus.OK);
-            }
+            return new ResponseEntity(accountEntity, HttpStatus.OK);
         }
         return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }

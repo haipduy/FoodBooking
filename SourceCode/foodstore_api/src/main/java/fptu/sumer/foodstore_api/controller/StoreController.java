@@ -2,7 +2,7 @@ package fptu.sumer.foodstore_api.controller;
 
 
 import fptu.sumer.foodstore_api.entity.StoreEntity;
-import fptu.sumer.foodstore_api.reponsitory.StoreReponsitory;
+import fptu.sumer.foodstore_api.reponsitory.StoreRepository;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/v1")
 @Api(value = "Account Management System", description = "Operations pertaining to account in Account Management System")
 public class StoreController {
 
     @Autowired
-    private StoreReponsitory storeReponsitory;
+    private StoreRepository storeReponsitory;
 
 
     @GetMapping("/stores")
@@ -31,7 +32,7 @@ public class StoreController {
     }
 
     @GetMapping("/stores/{id}")
-    public ResponseEntity getStoireNameById(
+    public ResponseEntity getStoreById(
             @PathVariable String id
     ) {
 

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface StoreReponsitory extends JpaRepository<StoreEntity, String> {
+public interface StoreRepository extends JpaRepository<StoreEntity, String> {
 
     List<StoreEntity> findAllByStoreStatus(int status);
 

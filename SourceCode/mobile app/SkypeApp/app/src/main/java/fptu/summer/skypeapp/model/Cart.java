@@ -10,6 +10,7 @@ import java.io.Serializable;
 
 @Entity
 public class Cart implements Serializable {
+
     @PrimaryKey(autoGenerate = true)
     public int id;
 

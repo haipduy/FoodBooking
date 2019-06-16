@@ -6,4 +6,7 @@
     <color name="colorBlack">#000000</color>
     <color name="colorRed">#FF0000</color>
     <color name="colorASC">#27ABFF</color>
+    <color name="button_pressed">#27ABFF</color>
+    <color name="button_focus">#27ABFF</color>
+    <color name="button_normal">#27ABFF</color>
 </resources>

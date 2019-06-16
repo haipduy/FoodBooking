@@ -9,13 +9,12 @@ import java.util.List;
 
 //@Service
 @Repository
-public interface ProductReponsitory extends JpaRepository<ProductEntity, String> {
+public interface ProductRepository extends JpaRepository<ProductEntity, String> {
 
     ProductEntity findByProNameContaining(String searchValue);
 
     ProductEntity findByProId(String productCode);
 
-//    List<ProductEntity> findAll();
 
     List<ProductEntity> findAllByProStatus(int status);
 

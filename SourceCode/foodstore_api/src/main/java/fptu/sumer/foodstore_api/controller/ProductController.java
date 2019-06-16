@@ -3,9 +3,9 @@ package fptu.sumer.foodstore_api.controller;
 import fptu.sumer.foodstore_api.entity.CategoryEntity;
 import fptu.sumer.foodstore_api.entity.ProductEntity;
 import fptu.sumer.foodstore_api.entity.StoreEntity;
-import fptu.sumer.foodstore_api.reponsitory.CategoryReponsitory;
-import fptu.sumer.foodstore_api.reponsitory.ProductReponsitory;
-import fptu.sumer.foodstore_api.reponsitory.StoreReponsitory;
+import fptu.sumer.foodstore_api.reponsitory.CategoryRepository;
+import fptu.sumer.foodstore_api.reponsitory.ProductRepository;
+import fptu.sumer.foodstore_api.reponsitory.StoreRepository;
 import fptu.sumer.foodstore_api.responsemodel.ProductResponseModel;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,23 +17,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/v1")
 @Api(value = "Account Management System", description = "Operations pertaining to account in Account Management System")
 public class ProductController {
 
     @Autowired
-    private ProductReponsitory productReponsitory;
+    private ProductRepository productRepository;
 
     @Autowired
-    private CategoryReponsitory categoryReponsitory;
+    private CategoryRepository categoryRepository;
     @Autowired
-    private StoreReponsitory storeReponsitory;
+    private StoreRepository storeRepository;
 
     @GetMapping("/products")
     public ResponseEntity getAllProductByStatus() {
 
         List<ProductResponseModel> listReponse = new ArrayList<>();
 
-        List<ProductEntity> listProduct = productReponsitory.findAllByProStatus(1);
+        List<ProductEntity> listProduct = productRepository.findAllByProStatus(1);
 
         if (listProduct != null) {
             for (ProductEntity product : listProduct) {
@@ -41,7 +42,7 @@ public class ProductController {
                 String proId = product.getProId();
                 String storeId= product.getStoreId();
 
-                StoreEntity store = storeReponsitory.findByStoreId(storeId);
+                StoreEntity store = storeRepository.findByStoreId(storeId);
 
                 String storeName = store.getStoreName();
                 String proName = product.getProName();
@@ -51,7 +52,7 @@ public class ProductController {
                 int proQuantity = product.getProQuantity();
                 String proDescription = product.getProDescription();
                 int proStatus = product.getProStatus();
-                CategoryEntity category = categoryReponsitory.findByCategoryId(product.getCategoryId());
+                CategoryEntity category = categoryRepository.findByCategoryId(product.getCategoryId());
 
                 ProductResponseModel pro = new ProductResponseModel(proId, storeId , storeName, proName, proPrice, priceDiscount, proImage, proQuantity, proDescription, proStatus, category);
 
@@ -68,7 +69,7 @@ public class ProductController {
     public ResponseEntity getProductById(
             @PathVariable String id
     ) {
-        ProductEntity productEntity = productReponsitory.findByProId(id);
+        ProductEntity productEntity = productRepository.findByProId(id);
         if(productEntity!=null){
             return new ResponseEntity(productEntity, HttpStatus.OK);
         }
@@ -83,15 +84,15 @@ public class ProductController {
         String productCode = product.getProId();
         int id = product.getCategoryId();
 
-        boolean checkProductCode = productReponsitory.existsDistinctByProId(productCode);
-        boolean checkcategory = categoryReponsitory.existsDistinctByCategoryId(id);
+        boolean checkProductCode = productRepository.existsDistinctByProId(productCode);
+        boolean checkcategory = categoryRepository.existsDistinctByCategoryId(id);
 
         if (checkProductCode == true || checkcategory == false) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
 
         product.setProStatus(1);
-        productReponsitory.save(product);
+        productRepository.save(product);
 
         return new ResponseEntity(product, HttpStatus.OK);
     }
@@ -101,7 +102,7 @@ public class ProductController {
             @PathVariable String id,
             @RequestBody ProductEntity product
     ) {
-        ProductEntity productEntity = productReponsitory.findByProId(id);
+        ProductEntity productEntity = productRepository.findByProId(id);
 
         if (productEntity != null) {
 
@@ -112,7 +113,7 @@ public class ProductController {
             productEntity.setProDescription(product.getProDescription());
             productEntity.setProStatus(product.getProStatus());
 
-            productReponsitory.save(productEntity);
+            productRepository.save(productEntity);
             return new ResponseEntity(productEntity, HttpStatus.OK);
 
         }

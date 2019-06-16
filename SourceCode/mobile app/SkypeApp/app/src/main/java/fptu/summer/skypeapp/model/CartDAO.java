@@ -1,4 +1,4 @@
-package fptu.summer.skypeapp.service;
+package fptu.summer.skypeapp.model;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;

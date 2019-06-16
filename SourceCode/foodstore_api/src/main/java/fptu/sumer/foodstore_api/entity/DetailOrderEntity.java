@@ -10,20 +10,12 @@ public class DetailOrderEntity {
     private  int quantity;
     private float price;
 
+
     public DetailOrderEntity() {
     }
 
-    public DetailOrderEntity(int orderId, String productId, int quantity, float price) {
-        orderId = orderId;
-        this.productId = productId;
-        this.quantity = quantity;
-        this.price = price;
-    }
-
-
-
     @Id
-    @Column(name = "OrderId")
+    @Column(name = "OrderId", updatable = false)
     public int getOrderId() {
         return orderId;
     }
