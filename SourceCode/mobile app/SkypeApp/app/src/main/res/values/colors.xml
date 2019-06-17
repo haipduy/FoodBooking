@@ -9,4 +9,13 @@
     <color name="button_pressed">#27ABFF</color>
     <color name="button_focus">#27ABFF</color>
     <color name="button_normal">#27ABFF</color>
+    <color name="background_color">#009688</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="white_greyish">#EEEEEE</color>
+    <color name="button_selectorcolor">#FFFFFF</color>
+    <color name="phone_number">#00FF00</color>
+    <color name="facebook">#0000FF</color>
+    <color name="email">#FF0000</color>
+
 </resources>
