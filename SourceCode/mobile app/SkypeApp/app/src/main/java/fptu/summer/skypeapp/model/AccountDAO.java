@@ -21,4 +21,7 @@ public interface AccountDAO {
     @Insert
     void insertAccountRoom(AccountRoom cart);
 
+    @Query("DELETE FROM AccountRoom")
+    void deleteAllAccount();
+
 }

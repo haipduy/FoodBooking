@@ -8,10 +8,10 @@
 
     <LinearLayout
         android:id="@+id/login_layout"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="360dp"
+        android:layout_height="619dp"
         android:layout_centerInParent="true"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="fill_parent"
@@ -20,7 +20,7 @@
             android:padding="10dp"
             android:text="@string/login"
             android:textColor="@color/white_greyish"
-            android:textSize="25sp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <Button
@@ -32,7 +32,7 @@
             android:padding="3dp"
             android:text="Phone Number"
             android:textColor="@color/white"
-            android:textSize="17sp"
+            android:textSize="15sp"
             android:textStyle="bold" />
 
         <com.facebook.login.widget.LoginButton
@@ -50,21 +50,21 @@
             android:layout_gravity="center"
             />
         <EditText
-            android:id="@+id/login_emailid"
-            android:singleLine="true"
+            android:id="@+id/edtUsername"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="52dp"
             android:layout_marginTop="20dp"
             android:background="@android:color/transparent"
             android:drawableLeft="@drawable/email"
             android:drawablePadding="8dp"
             android:gravity="center_vertical"
-            android:hint="@string/email"
+            android:hint="@string/username"
             android:inputType="textEmailAddress"
             android:padding="10dp"
+            android:singleLine="true"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
 
         <View
             android:layout_width="fill_parent"
@@ -72,10 +72,9 @@
             android:background="@color/white_greyish" />
 
         <EditText
-            android:id="@+id/login_password"
-            android:singleLine="true"
+            android:id="@+id/edtPassword"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="49dp"
             android:background="@android:color/transparent"
             android:drawableLeft="@drawable/password"
             android:drawablePadding="8dp"
@@ -83,16 +82,21 @@
             android:hint="@string/password"
             android:inputType="textPassword"
             android:padding="10dp"
+            android:singleLine="true"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:background="@color/white_greyish" />
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingBottom="5dp"
-            android:paddingTop="8dp" >
+            android:paddingTop="15dp"
+            android:paddingBottom="30dp">
 
             <CheckBox
                 android:id="@+id/show_hide_password"
@@ -101,7 +105,8 @@
                 android:layout_weight="1"
                 android:text="@string/show_pwd"
                 android:textColor="@color/white"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:onClick="clickToShowPassword"/>
 
             <TextView
                 android:id="@+id/forgot_password"
@@ -116,13 +121,14 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/loginBtn"
+            android:id="@+id/btnLogin"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="42dp"
+            android:layout_alignStart="@+id/login_layout"
             android:layout_marginTop="3dp"
             android:background="@drawable/loginbutton_selector"
-            android:padding="3dp"
-            android:text="SIGN IN"
+            android:onClick="clickToLogin"
+            android:text="Sign In"
             android:textColor="#009688"
             android:textSize="17sp"
             android:textStyle="bold" />

@@ -9,8 +9,10 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -57,6 +59,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
 
+    CheckBox ckShowPass;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +69,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         edtUsername= findViewById(R.id.edtUsername);
         edtPassword= findViewById(R.id.edtPassword);
         btnLogin = findViewById(R.id.btnLogin);
-        btnCancel = findViewById(R.id.btnCancel);
+        ckShowPass = findViewById(R.id.show_hide_password);
+
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
@@ -113,7 +119,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 public void onResponse(Call<Account> call, Response<Account> response) {
                     if(response.isSuccessful()){
                         MainActivity.account = response.body();
-
                         AsyncTask<Void,Void, Boolean> asyncTask = new AsyncTask<Void, Void, Boolean>() {
                             @Override
                             protected Boolean doInBackground(Void... voids) {
@@ -122,7 +127,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 accRoom.setUserPassword(password);
                                 accRoom.setTimeLogin(new Date().getTime());
                                 accountDatabase.accountDAO().insertAccountRoom(accRoom);
-
                                 return true;
                             }
                         };
@@ -222,4 +226,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Toast.makeText(this, account.getEmail(), Toast.LENGTH_SHORT).show();
     }
 
+    public void clickToShowPassword(View view) {
+        if (ckShowPass.isChecked()){
+            edtPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+        }else{
+            edtPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        }
+    }
 }

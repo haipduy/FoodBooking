@@ -70,17 +70,18 @@ public class MainActivity extends MasterActivity implements SearchView.OnQueryTe
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_homes:
-                        Toast.makeText(MainActivity.this, "Homes", Toast.LENGTH_SHORT).show();
+
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.action_favorites:
-                        Toast.makeText(MainActivity.this, "Favorites", Toast.LENGTH_SHORT).show();
+                        intent = new Intent(getApplicationContext(), HistoryActivity.class);
+                        startActivity(intent);
                         break;
                     case R.id.action_profile:
                         intent = new Intent(getApplicationContext(), ProfileActivity.class);
                         startActivity(intent);
-                        Toast.makeText(MainActivity.this, "profiles", Toast.LENGTH_SHORT).show();
+
                         break;
                 }
                 return true;
@@ -107,9 +108,6 @@ public class MainActivity extends MasterActivity implements SearchView.OnQueryTe
                     adapter = new ProductDBAdapter(getApplicationContext(), response.body());
 
                     listView.setAdapter(adapter);
-                } else {
-                    int statusCode = response.code();
-
                 }
             }
 
@@ -135,11 +133,10 @@ public class MainActivity extends MasterActivity implements SearchView.OnQueryTe
         }
         return false;
     }
-    public void getUserAccount() {
 
+    public void getUserAccount() {
         accountDatabase = AccountDatabase.getInstance(this);
         AsyncTask<Void, Void, AccountRoom> asyncTask = new AsyncTask<Void, Void, AccountRoom>() {
-
             @Override
             protected AccountRoom doInBackground(Void... voids) {
                 accRoom = accountDatabase.accountDAO().getAccount();
@@ -150,28 +147,28 @@ public class MainActivity extends MasterActivity implements SearchView.OnQueryTe
             protected void onPostExecute(AccountRoom accRoom) {
                 if (accRoom != null) {
                     if (new Date().getTime() - accRoom.getTimeLogin() < TIME_OUT) {
-                        Toast.makeText(getApplicationContext(), accRoom.getTimeLogin()+"", Toast.LENGTH_SHORT).show();
-                        Map<String,String> mAccount = new HashMap<>();
+                        Toast.makeText(getApplicationContext(), accRoom.getTimeLogin() + "", Toast.LENGTH_SHORT).show();
+                        Map<String, String> mAccount = new HashMap<>();
                         mAccount.put("username", accRoom.getUserId());
                         mAccount.put("password", accRoom.getUserPassword());
-                        exercuteAsy(mAccount);
-
+                        exercuteAsyncTask(mAccount);
                     }
                 }
             }
         };
         asyncTask.execute();
     }
-    public void exercuteAsy(Map<String,String> mAccount){
+
+    public void exercuteAsyncTask(Map<String, String> mAccount) {
         accountDatabase = AccountDatabase.getInstance(this);
         accountService = APIUtils.checkLoginService();
         accountService.checkLogin(mAccount).enqueue(new Callback<Account>() {
             @Override
             public void onResponse(Call<Account> call, Response<Account> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     MainActivity.account = response.body();
 
-                    AsyncTask<Void,Void, Boolean> asyncTask = new AsyncTask<Void, Void, Boolean>() {
+                    AsyncTask<Void, Void, Boolean> asyncTask = new AsyncTask<Void, Void, Boolean>() {
                         @Override
                         protected Boolean doInBackground(Void... voids) {
                             AccountRoom accountRoom = new AccountRoom();
@@ -179,13 +176,13 @@ public class MainActivity extends MasterActivity implements SearchView.OnQueryTe
                             accountRoom.setUserPassword(accRoom.getUserPassword());
                             accountRoom.setTimeLogin(new Date().getTime());
                             accountDatabase.accountDAO().insertAccountRoom(accountRoom);
-
                             return true;
                         }
                     };
                     asyncTask.execute();
                 }
             }
+
             @Override
             public void onFailure(Call<Account> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "can't connect", Toast.LENGTH_SHORT).show();

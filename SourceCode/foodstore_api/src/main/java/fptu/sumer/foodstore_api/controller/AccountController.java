@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/")
 @Api(value = "Account Management System")
 public class AccountController {
 
@@ -24,7 +24,7 @@ public class AccountController {
             @ApiResponse(code = 200, message = "Successfully retrieved list"),
             @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
     })
-    @GetMapping("/accounts")
+    @GetMapping("accounts")
     public ResponseEntity getAllCustomer() {
 
         List<AccountEntity> listCus = ar.findAllByStatus(1);
@@ -36,7 +36,7 @@ public class AccountController {
     }
 
     @ApiOperation(value = "Check login by username and password")
-    @PostMapping("/account/login")
+    @PostMapping("account/login")
     public ResponseEntity<AccountEntity> checklogin(
             @ApiParam(value = "Check login by username and password", required = true) @RequestBody Map<String, String> account
     ) {
@@ -52,7 +52,7 @@ public class AccountController {
     }
 
     @ApiOperation(value = "Create new account")
-    @PostMapping("/accounts")
+    @PostMapping("accounts")
     public ResponseEntity createNewAccount(
             @ApiParam(value = "Account object store in database table", required = true) @RequestBody AccountEntity account
     ){
@@ -73,7 +73,7 @@ public class AccountController {
     }
 
     @ApiOperation(value = "Update account by Id")
-    @PutMapping("/accounts/{id}")
+    @PutMapping("accounts/{id}")
     public ResponseEntity updateAccountById(
 //            @RequestBody AccountEntity account
             @ApiParam(value = "Account Id to update account object", required = true) @PathVariable(value = "id") String id,

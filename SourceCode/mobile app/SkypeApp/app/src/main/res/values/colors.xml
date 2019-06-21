@@ -17,5 +17,6 @@
     <color name="phone_number">#00FF00</color>
     <color name="facebook">#0000FF</color>
     <color name="email">#FF0000</color>
+    <color name="whitegreyish">#9B9B9B</color>
 
 </resources>

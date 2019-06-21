@@ -3,24 +3,24 @@ package fptu.sumer.foodstore_api.controller;
 
 import fptu.sumer.foodstore_api.entity.*;
 import fptu.sumer.foodstore_api.reponsitory.*;
-import fptu.sumer.foodstore_api.responsemodel.ItemResponseModel;
+import fptu.sumer.foodstore_api.responsemodel.ItemModel;
+import fptu.sumer.foodstore_api.responsemodel.ItemRequestModel;
 import io.swagger.annotations.Api;
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/")
 @Api(value = "Order Management")
 public class OrderController {
+
+    private Logger logger = Logger.getLogger(this.getClass());
 
     @Autowired
     OrderRepository orderRepository;
@@ -34,7 +34,7 @@ public class OrderController {
     TransactionUserRepository transactionUserRepository;
 
 
-    @GetMapping("/orders")
+    @GetMapping("orders")
     public ResponseEntity getAllOrder() {
         List<OrderListEntity> listOrderListEntity = orderRepository.findAll();
         if (listOrderListEntity != null) {
@@ -69,19 +69,20 @@ public class OrderController {
     }
 
     //create new order
-    @PostMapping("/orders")
+    @PostMapping("orders")
     public ResponseEntity updateOrderById(
-            @PathVariable String userId,
-            @PathVariable float total,
-            @PathVariable String notes,
-            @RequestBody List<ItemResponseModel> listProduct
+            @RequestBody ItemRequestModel item
     ) {
-        //get bank account by id
-        BankAccountEntity bankAccount = getAccountByUserId(userId);
 
-        // chack tai khoan con tien hay k
-        float sodu = bankAccount.getAccMoney();
-        if (sodu >= total) {
+        String userId = item.getUserId();
+        float total = item.getTotal();
+        String notes = item.getNotes();
+        List<ItemModel> listProduct = item.getListProduct();
+
+        BankAccountEntity bankAccount = getAccountByUserId(userId);
+        if (bankAccount != null) {
+            // chack tai khoan con tien hay k
+            float sodu = bankAccount.getAccMoney();
             bankAccount.setAccMoney(sodu - total);
             bankAccountRepository.saveAndFlush(bankAccount);
             int bankid = bankAccount.getBankId();
@@ -94,24 +95,25 @@ public class OrderController {
             order.setTotal(total);
             order.setNotes(notes);
             orderRepository.saveAndFlush(order);
-//
+
             //get id order
             int orderId = order.getOrderId();
 
             //create order detail
             createNewDetailOrder(orderId, listProduct);
             ///create payment and get payid
-            int payId = createPayment(orderId,total,orderDate);
+            int payId = createPayment(orderId, total, orderDate);
             // create transaction
-            createTransaction(bankid,payId,orderDate);
+            createTransaction(bankid, payId, orderDate);
 
             return new ResponseEntity(HttpStatus.OK);
+
         }
         return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 
 
-    @PutMapping("/order/{id}")
+    @PutMapping("order/{id}")
     public ResponseEntity createNewOrder(@PathVariable int id, @RequestBody OrderListEntity order) {
 
         return null;
@@ -125,10 +127,10 @@ public class OrderController {
         return bankAccount;
     }
 
-    private void createNewDetailOrder(int orderId, List<ItemResponseModel> listProduct) {
-        DetailOrderEntity detailOrder  = new DetailOrderEntity();
+    private void createNewDetailOrder(int orderId, List<ItemModel> listProduct) {
+        DetailOrderEntity detailOrder = new DetailOrderEntity();
         detailOrder.setOrderId(orderId);
-        for (ItemResponseModel item : listProduct) {
+        for (ItemModel item : listProduct) {
             detailOrder.setProductId(item.getProductId());
             detailOrder.setQuantity(item.getQuantity());
             detailOrder.setPrice(item.getPrice());
@@ -136,7 +138,8 @@ public class OrderController {
         }
 
     }
-    private int createPayment(int orderId, float amount, Date payDate){
+
+    private int createPayment(int orderId, float amount, Date payDate) {
         PaymentEntity payment = new PaymentEntity();
         payment.setOrderId(orderId);
         payment.setPayAmount(amount);
@@ -144,8 +147,9 @@ public class OrderController {
         paymentRepository.save(payment);
         return payment.getPayId();
     }
-    private void createTransaction(int bankId,int payId, Date date){
-        TransactionUserEntity transaction  = new TransactionUserEntity();
+
+    private void createTransaction(int bankId, int payId, Date date) {
+        TransactionUserEntity transaction = new TransactionUserEntity();
         transaction.setBankId(bankId);
         transaction.setPayId(payId);
         transaction.setTransDate(date);

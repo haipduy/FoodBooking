@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/")
 @Api(value = "Food Management System")
 public class MyController {
     final static String DEFAULT_IMAGE_PATH = "default.png";
-    @GetMapping("/images/{path}")
+    @GetMapping("images/{path}")
     public ResponseEntity<InputStreamResource> getImage(@PathVariable(required = true) String path) throws IOException {
         ClassPathResource imgFile = new ClassPathResource("images/"+path);
         if(!imgFile.exists()){
