@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/")
 @Api(value = "Account Management System", description = "Operations pertaining to account in Account Management System")
 public class StoreController {
 
@@ -20,7 +20,7 @@ public class StoreController {
     private StoreRepository storeReponsitory;
 
 
-    @GetMapping("/stores")
+    @GetMapping("stores")
     public ResponseEntity getAllStore() {
 
         List<StoreEntity> storesList = storeReponsitory.findAllByStoreStatus(1);
@@ -31,7 +31,7 @@ public class StoreController {
         return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 
-    @GetMapping("/stores/{id}")
+    @GetMapping("stores/{id}")
     public ResponseEntity getStoreById(
             @PathVariable String id
     ) {
@@ -46,7 +46,7 @@ public class StoreController {
     }
 
 
-    @PostMapping("/stores")
+    @PostMapping("stores")
     public ResponseEntity createNewStore(
             @RequestBody StoreEntity store
     ) {
@@ -60,7 +60,7 @@ public class StoreController {
         return new ResponseEntity(store, HttpStatus.OK);
     }
 
-    @PutMapping("/stores/{id}")
+    @PutMapping("stores/{id}")
     public ResponseEntity changeStatusStore(
             @PathVariable String id,
             @RequestBody StoreEntity store

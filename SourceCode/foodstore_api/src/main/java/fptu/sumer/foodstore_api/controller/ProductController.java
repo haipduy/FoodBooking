@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/")
 @Api(value = "Account Management System", description = "Operations pertaining to account in Account Management System")
 public class ProductController {
 
@@ -29,7 +29,7 @@ public class ProductController {
     @Autowired
     private StoreRepository storeRepository;
 
-    @GetMapping("/products")
+    @GetMapping("products")
     public ResponseEntity getAllProductByStatus() {
 
         List<ProductResponseModel> listReponse = new ArrayList<>();
@@ -65,7 +65,7 @@ public class ProductController {
         return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 
-    @GetMapping("/products/{id}")
+    @GetMapping("products/{id}")
     public ResponseEntity getProductById(
             @PathVariable String id
     ) {
@@ -76,7 +76,7 @@ public class ProductController {
         return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 
-    @PostMapping("/products")
+    @PostMapping("products")
     public ResponseEntity createNewProduct(
             @RequestBody ProductEntity product
     ) {
@@ -97,7 +97,7 @@ public class ProductController {
         return new ResponseEntity(product, HttpStatus.OK);
     }
 
-    @PutMapping("/products/{id}")
+    @PutMapping("products/{id}")
     public ResponseEntity updateProduct(
             @PathVariable String id,
             @RequestBody ProductEntity product

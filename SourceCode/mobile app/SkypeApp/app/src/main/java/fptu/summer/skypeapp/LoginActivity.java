@@ -7,8 +7,10 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -33,14 +35,18 @@ public class LoginActivity extends AppCompatActivity {
     AccountRoom accRoom = null;
     String username = null;
 
+    CheckBox ckShowPass;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.login_layout);
         edtUsername= findViewById(R.id.edtUsername);
         edtPassword= findViewById(R.id.edtPassword);
         btnLogin = findViewById(R.id.btnLogin);
-        btnCancel = findViewById(R.id.btnCancel);
+        ckShowPass = findViewById(R.id.show_hide_password);
+
 
     }
 
@@ -66,7 +72,6 @@ public class LoginActivity extends AppCompatActivity {
                 public void onResponse(Call<Account> call, Response<Account> response) {
                     if(response.isSuccessful()){
                         MainActivity.account = response.body();
-
                         AsyncTask<Void,Void, Boolean> asyncTask = new AsyncTask<Void, Void, Boolean>() {
                             @Override
                             protected Boolean doInBackground(Void... voids) {
@@ -75,7 +80,6 @@ public class LoginActivity extends AppCompatActivity {
                                 accRoom.setUserPassword(password);
                                 accRoom.setTimeLogin(new Date().getTime());
                                 accountDatabase.accountDAO().insertAccountRoom(accRoom);
-
                                 return true;
                             }
                         };
@@ -110,5 +114,14 @@ public class LoginActivity extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+
+
+    public void clickToShowPassword(View view) {
+        if (ckShowPass.isChecked()){
+            edtPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+        }else{
+            edtPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        }
     }
 }

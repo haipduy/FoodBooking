@@ -2,20 +2,20 @@ package fptu.sumer.foodstore_api.responsemodel;
 
 import java.io.Serializable;
 
-public class ItemResponseModel implements Serializable {
+public class ItemModel implements Serializable {
     private String productId;
     private String storeId;
     private int quantity;
     private  float price;
 
-    public ItemResponseModel(String productId, String storeId, int quantity, float price) {
+    public ItemModel(String productId, String storeId, int quantity, float price) {
         this.productId = productId;
         this.storeId = storeId;
         this.quantity = quantity;
         this.price = price;
     }
 
-    public ItemResponseModel() {
+    public ItemModel() {
     }
 
     public String getProductId() {

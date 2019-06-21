@@ -1,29 +1,16 @@
-package fptu.summer.skypeapp.model;
-
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+package fptu.sumer.foodstore_api.responsemodel;
 
 import java.io.Serializable;
 import java.util.List;
 
 public class ItemRequestModel implements Serializable {
-    @SerializedName("userId")
-    @Expose
     private String userId;
-
-    @SerializedName("total")
-    @Expose
     private float total;
-
-    @SerializedName("notes")
-    @Expose
     private String notes;
-
-    @SerializedName("listProduct")
-    @Expose
     private List<ItemModel> listProduct;
 
     public ItemRequestModel(String userId, float total, String notes, List<ItemModel> listProduct) {
+
         this.userId = userId;
         this.total = total;
         this.notes = notes;
