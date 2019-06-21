@@ -6,7 +6,8 @@
     <string name="title_activity_detail_product">DetailProductActivity</string>
     <string name="title_activity_profile">ProfileActivity</string>
     <string name="title_activity_login">LoginActivity</string>
-    <string name="app_name">Login Screen</string>
+    <!--<string name="app_name">Login Screen</string>
+-->
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="email">Email</string>
@@ -26,4 +27,5 @@
     <string name="registered_emailid">Please enter your Registered Email below:</string>
     <string name="submit">SUBMIT</string>
     <string name="back">BACK</string>
+    <string name="facebook_app_id">457000341520089</string>
 </resources>
