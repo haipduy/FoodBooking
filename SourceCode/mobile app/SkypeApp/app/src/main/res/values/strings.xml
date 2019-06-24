@@ -26,6 +26,7 @@
     <string name="registered_emailid">Please enter your Registered Email below:</string>
     <string name="submit">SUBMIT</string>
     <string name="back">BACK</string>
+    <string name="facebook_app_id">457000341520089</string>
     <string name="title_activity_credit">CreditActivity</string>
     <string name="title_activity_history">HistoryActivity</string>
 </resources>

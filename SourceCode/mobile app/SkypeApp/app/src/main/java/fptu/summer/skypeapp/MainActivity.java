@@ -1,6 +1,9 @@
 package fptu.summer.skypeapp;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,10 +11,13 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Base64;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 
+import java.security.MessageDigest;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -48,6 +54,15 @@ public class MainActivity extends MasterActivity implements SearchView.OnQueryTe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        try {
+            PackageInfo packageInfo = getPackageManager().getPackageInfo("fptu.summer.skypeapp", PackageManager.GET_SIGNATURES);
+            for(Signature signature: packageInfo.signatures){
+                MessageDigest messageDigest = MessageDigest.getInstance("SHA");
+                messageDigest.update(signature.toByteArray());
+                Log.d("KeyHash", Base64.encodeToString(messageDigest.digest(),Base64.DEFAULT));
+            }
+        }catch (Exception e){
+        }
         // ----------------
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
