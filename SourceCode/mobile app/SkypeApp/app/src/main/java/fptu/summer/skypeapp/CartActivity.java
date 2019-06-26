@@ -44,8 +44,9 @@ public class CartActivity extends MasterActivity {
     private OrderService orderService;
     private BankService bankService;
 
-    private boolean checkValidOrder = true;
 
+    private float totalMoney = 0;
+    private boolean bankAccountIsExist = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,20 +54,20 @@ public class CartActivity extends MasterActivity {
         setContentView(R.layout.activity_cart);
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.action_orders);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_homes:
-
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
                         break;
-                    case R.id.action_favorites:
+                    case R.id.action_orders:
                         intent = new Intent(getApplicationContext(), HistoryActivity.class);
                         startActivity(intent);
                         break;
-                    case R.id.action_profile:
+                    case R.id.action_account:
                         intent = new Intent(getApplicationContext(), ProfileActivity.class);
                         startActivity(intent);
 
@@ -100,8 +101,6 @@ public class CartActivity extends MasterActivity {
         return this;
     }
 
-
-    float totalMoney = 0;
 
     public void GetListItem() {
         class GetListItem extends AsyncTask<Void, Void, List<Cart>> {
@@ -147,102 +146,116 @@ public class CartActivity extends MasterActivity {
     public void clicktoSubmitOrder(View view) {
         account = MainActivity.account;
 
-        validationOrder(account);
-
-        if(checkValidOrder){
+        checkBankAccount(account);
+        if (bankAccountIsExist) {
             System.out.println("co account va co tai khoan roi");
-        }else{
-            System.out.println("Sai -----------------------");
-        }
-//        AsyncTask<Void, Void, List<Cart>> asyncTask = new AsyncTask<Void, Void, List<Cart>>() {
-//            String userId = account.getUserId();
-//            float total = Float.parseFloat(txtTotal.getText().toString().trim());
-//            String notes = txtNotes.getText().toString().trim();
-//            List<ItemModel> listProduct = null;
-//            @Override
-//            protected List<Cart> doInBackground(Void... voids) {
-//                List<Cart> cartList = cartDatabase.cartDAO().getAll();
-//                return cartList;
-//
-//            }
-//            @Override
-//            protected void onPostExecute(final List<Cart> carts) {
-//                for (Cart cart : carts) {
-//                    ItemModel item = new ItemModel(cart.productId, cart.storeId, cart.quantity, cart.price);
-//                    System.out.println(item.getProductId() + "=------------------------------------product ID");
-//                    if (listProduct == null) {
-//                        listProduct = new ArrayList<>();
-//                    }
-//                    listProduct.add(item);
-//                }
-//                ItemRequestModel itemRequest = new ItemRequestModel(userId, total, notes, listProduct);
-//                //call service
-//                orderService = APIUtils.getOrderService();
-//
-//                System.out.println(itemRequest.getListProduct().size() + " -----------------------");
-//                orderService.creataNewOrder(itemRequest).enqueue(new Callback<Void>() {
-//                    @Override
-//                    public void onResponse(Call<Void> call, Response<Void> response) {
-//                        if (response.isSuccessful()) {
-//
-//                            Toast.makeText(CartActivity.this, "Create order OK", Toast.LENGTH_SHORT).show();
-//                            deleteAllItem();
-//                            GetListItem();
-//                            Intent intent = new Intent(CartActivity.this, MainActivity.class);
-//                            startActivity(intent);
-//
-//                        } else {
-//                            Toast.makeText(CartActivity.this, "Create order fail", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<Void> call, Throwable t) {
-//                        t.printStackTrace();
-//                        Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-//
-//                    }
-//                });
-//            }
-//        };
-//        asyncTask.execute();
-    }
 
-    public boolean validationOrder( Account account) {
-        //check account co login hay khong
-        if (account == null) {
-            // chua login
-            System.out.println("--- Chua login --- ");
-            checkValidOrder = false;
-            return false;
-        }
-        //check account co tai tai khoan hay khong
-        String userID = account.getUserId();
-        System.out.println("User id -----------" +userID);
-        // call api lay tai khaon ngan hang
-        bankService = APIUtils.bankService();
-        bankService.getBankAccountByUserId(userID).enqueue(new Callback<BankAccount>() {
-            @Override
-            public void onResponse(Call<BankAccount> call, Response<BankAccount> response) {
-                if(response.isSuccessful()){
-                    BankAccount bankAccount = response.body();
-                    if(bankAccount != null){
-                        System.out.println("--- Co Bank Account ---");
-                        return;
+            AsyncTask<Void, Void, List<Cart>> asyncTask = new AsyncTask<Void, Void, List<Cart>>() {
+                String userId = account.getUserId();
+                float total = Float.parseFloat(txtTotal.getText().toString().trim());
+                String notes = txtNotes.getText().toString().trim();
+                List<ItemModel> listProduct = null;
+
+                @Override
+                protected List<Cart> doInBackground(Void... voids) {
+                    List<Cart> cartList = cartDatabase.cartDAO().getAll();
+                    return cartList;
+
+                }
+
+                @Override
+                protected void onPostExecute(final List<Cart> carts) {
+                    if (!carts.isEmpty()) {
+                        for (Cart cart : carts) {
+                            ItemModel item = new ItemModel(cart.productId, cart.storeId, cart.quantity, cart.price);
+                            System.out.println(item.getProductId() + "=------------------------------------product ID");
+                            if (listProduct == null) {
+                                listProduct = new ArrayList<>();
+                            }
+                            listProduct.add(item);
+                        }
+                        ItemRequestModel itemRequest = new ItemRequestModel(userId, total, notes, listProduct);
+                        //call service
+                        orderService = APIUtils.getOrderService();
+
+                        System.out.println(itemRequest.getListProduct().size() + " -----------------------");
+                        orderService.creataNewOrder(itemRequest).enqueue(new Callback<Void>() {
+                            @Override
+                            public void onResponse(Call<Void> call, Response<Void> response) {
+                                if (response.isSuccessful()) {
+                                    Toast.makeText(CartActivity.this, "Create order OK", Toast.LENGTH_SHORT).show();
+                                    deleteAllItem();
+                                    GetListItem();
+                                    Intent intent = new Intent(CartActivity.this, MainActivity.class);
+                                    startActivity(intent);
+
+                                } else {
+                                    Toast.makeText(CartActivity.this, "Create order fail", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<Void> call, Throwable t) {
+                                t.printStackTrace();
+                                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
+                    } else {
+                        Toast.makeText(CartActivity.this, "Cart is empty", Toast.LENGTH_SHORT).show();
                     }
 
-                } else{
-                    System.out.println("--- Khong co Bank Account ---");
-                    checkValidOrder = false;
-                    return;
                 }
-            }
-            @Override
-            public void onFailure(Call<BankAccount> call, Throwable t) {
+            };
+            asyncTask.execute();
+        } else {
+            Toast.makeText(CartActivity.this, "account is invalid", Toast.LENGTH_SHORT).show();
+        }
 
-            }
-        });
-        return true;
+
+    }
+
+
+    //check account co tai tai khoan hay khong
+    private void checkBankAccount(Account account) {
+        if (account == null) {
+            bankAccountIsExist = false;
+        } else {
+            String userID = account.getUserId();
+            System.out.println("User id -----------" + userID);
+            // call api lay tai khaon ngan hang
+            bankService = APIUtils.bankService();
+            bankService.getBankAccountByUserId(userID).enqueue(new Callback<BankAccount>() {
+                @Override
+                public void onResponse(Call<BankAccount> call, Response<BankAccount> response) {
+                    if (response.isSuccessful()) {
+                        BankAccount bankAccount = response.body();
+                        if (bankAccount != null) {
+                            // check tai khoan co du thanh toan hay khong.
+                            float accMoney = bankAccount.getAccMoney();
+                            if (accMoney == 0 || accMoney < totalMoney) {
+                                Toast.makeText(CartActivity.this, "Tai khoan thanh toan cua ban khong du", Toast.LENGTH_SHORT).show();
+                                bankAccountIsExist = false;
+                            }
+                        }
+
+                    } else {
+                        Toast.makeText(CartActivity.this, "Ban chua co tai khoan thanh toan", Toast.LENGTH_SHORT).show();
+                        bankAccountIsExist = false;
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<BankAccount> call, Throwable t) {
+                    t.printStackTrace();
+                    Toast.makeText(CartActivity.this, "Goi api fail", Toast.LENGTH_SHORT).show();
+                    bankAccountIsExist = false;
+
+                }
+            });
+
+        }
+
     }
 
     private void deleteAllItem() {

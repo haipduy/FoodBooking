@@ -18,5 +18,7 @@
     <color name="facebook">#0000FF</color>
     <color name="email">#FF0000</color>
     <color name="whitegreyish">#9B9B9B</color>
+    <color name="textStatus">#98E245</color>
+    <color name="colorCam">#FF6339</color>
 
 </resources>

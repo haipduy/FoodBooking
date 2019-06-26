@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.sql.Date;
 
 public class BankAccount implements Serializable {
+
     @SerializedName("bankId")
     @Expose
     private int bankId;
@@ -24,7 +25,7 @@ public class BankAccount implements Serializable {
     private float accMoney;
     @SerializedName("expiredDate")
     @Expose
-    private Date expiredDate;
+    private String expiredDate;
     @SerializedName("isActive")
     @Expose
     private int isActive;
@@ -72,11 +73,11 @@ public class BankAccount implements Serializable {
         this.accMoney = accMoney;
     }
 
-    public Date getExpiredDate() {
+    public String getExpiredDate() {
         return expiredDate;
     }
 
-    public void setExpiredDate(Date expiredDate) {
+    public void setExpiredDate(String expiredDate) {
         this.expiredDate = expiredDate;
     }
 

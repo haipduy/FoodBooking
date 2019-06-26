@@ -65,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
 
             accountDatabase = AccountDatabase.getInstance(this);
 
-            accountService = APIUtils.checkLoginService();
+            accountService = APIUtils.accountService();
 
             accountService.checkLogin(mAccount).enqueue(new Callback<Account>() {
                 @Override

@@ -37,9 +37,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             app:menu="@menu/bottom_toolbar"
-            app:itemBackground="@color/colorPrimary"
-            app:itemIconTint="@android:color/white"
-            app:itemTextColor="@android:color/white" />
+            app:itemIconSize="28dp"
+            app:itemBackground="@color/white"/>
     </LinearLayout>
 
 

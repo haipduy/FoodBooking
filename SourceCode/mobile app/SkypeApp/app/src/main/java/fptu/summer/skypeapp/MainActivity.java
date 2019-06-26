@@ -5,10 +5,13 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 
@@ -33,7 +36,7 @@ import static fptu.summer.skypeapp.constants.RetrofitConstants.TIME_OUT;
 
 
 public class MainActivity extends MasterActivity implements SearchView.OnQueryTextListener {
-
+    ImageView imgImageViewCart;
 
     private RecyclerView listView;
     private ProductService pService;
@@ -48,22 +51,23 @@ public class MainActivity extends MasterActivity implements SearchView.OnQueryTe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         // ----------------
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.action_homes);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_homes:
-
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
                         break;
-                    case R.id.action_favorites:
+                    case R.id.action_orders:
                         intent = new Intent(getApplicationContext(), HistoryActivity.class);
                         startActivity(intent);
                         break;
-                    case R.id.action_profile:
+                    case R.id.action_account:
                         intent = new Intent(getApplicationContext(), ProfileActivity.class);
                         startActivity(intent);
 
@@ -73,8 +77,8 @@ public class MainActivity extends MasterActivity implements SearchView.OnQueryTe
             }
         });
 
-
         //-------------
+        imgImageViewCart = findViewById(R.id.imgCart);
         searchView = findViewById(R.id.txtSearch);
         searchView.setOnQueryTextListener(this);
 
@@ -95,12 +99,10 @@ public class MainActivity extends MasterActivity implements SearchView.OnQueryTe
                     listView.setAdapter(adapter);
                 }
             }
-
             @Override
             public void onFailure(Call<List<Product>> call, Throwable t) {
             }
         });
-
         getUserAccount();
 
 
@@ -146,7 +148,7 @@ public class MainActivity extends MasterActivity implements SearchView.OnQueryTe
 
     public void exercuteAsyncTask(Map<String, String> mAccount) {
         accountDatabase = AccountDatabase.getInstance(this);
-        accountService = APIUtils.checkLoginService();
+        accountService = APIUtils.accountService();
         accountService.checkLogin(mAccount).enqueue(new Callback<Account>() {
             @Override
             public void onResponse(Call<Account> call, Response<Account> response) {
@@ -174,5 +176,10 @@ public class MainActivity extends MasterActivity implements SearchView.OnQueryTe
 
             }
         });
+    }
+
+    public void clickToViewCart(View view) {
+        Intent intent = new Intent(MainActivity.this, CartActivity.class);
+        startActivity(intent);
     }
 }

@@ -14,7 +14,7 @@ public class APIUtils {
     public static OrderService getOrderService(){
         return RetrofitClient.getClient().create(OrderService.class);
     }
-    public static AccountService checkLoginService(){
+    public static AccountService accountService(){
         return  RetrofitClient.getClient().create(AccountService.class);
     }
     public static BankService bankService(){

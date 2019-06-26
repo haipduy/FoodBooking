@@ -20,11 +20,14 @@
         </android.support.v7.widget.SearchView>
 
         <ImageView
-            android:layout_marginTop="10dp"
+            android:id="@+id/imgCart"
+            android:paddingTop="10sp"
+            android:paddingBottom="10sp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="2"
-            android:src="@drawable/ic_cart" />
+            android:src="@drawable/ic_cart"
+            android:onClick="clickToViewCart"/>
     </LinearLayout>
 
     <ScrollView
@@ -44,9 +47,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         app:menu="@menu/bottom_toolbar"
-        app:itemBackground="@color/colorPrimary"
-        app:itemIconTint="@android:color/white"
-        app:itemTextColor="@android:color/white" />
+        app:itemIconSize="28dp"
+        app:itemBackground="@color/white"/>
+
 
 
 </LinearLayout>

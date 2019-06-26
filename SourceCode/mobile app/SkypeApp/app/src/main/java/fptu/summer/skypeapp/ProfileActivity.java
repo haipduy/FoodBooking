@@ -35,19 +35,24 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.action_account);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_homes:
+
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
                         break;
-                    case R.id.action_favorites:
+                    case R.id.action_orders:
+                        intent = new Intent(getApplicationContext(), HistoryActivity.class);
+                        startActivity(intent);
                         break;
-                    case R.id.action_profile:
+                    case R.id.action_account:
                         intent = new Intent(getApplicationContext(), ProfileActivity.class);
                         startActivity(intent);
+
                         break;
                 }
                 return true;
