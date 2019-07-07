@@ -29,6 +29,7 @@ public class ProfileActivity extends AppCompatActivity {
     String username = null;
     Account account;
     Button myAccount,myWallet;
+    LinearLayout btnQRCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,4 +123,9 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
+
+    public void clickQRCode(View view) {
+        Intent intent = new Intent(ProfileActivity.this, QRCodeActivity.class);
+        startActivity(intent);
+    }
 }

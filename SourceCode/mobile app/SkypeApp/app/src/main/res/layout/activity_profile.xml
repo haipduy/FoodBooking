@@ -245,6 +245,7 @@
                     android:layout_height="2px"
                     android:background="@color/white_greyish" />
                 <LinearLayout
+                    android:onClick="clickQRCode"
                     android:layout_marginRight="16dp"
                     android:id="@+id/btnQRCode"
                     android:layout_width="match_parent"
