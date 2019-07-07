@@ -6,23 +6,43 @@
     android:orientation="vertical"
     android:weightSum="1"
     android:layout_height="match_parent"
-    tools:context=".HistoryActivity">
+    tools:context=".view.HistoryActivity">
 
-    <Button
-        android:text="History"
+    <TextView
+        android:layout_weight="1"
+        android:id="@+id/txtViewMore"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:text="Login to show more"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <ScrollView
+        android:layout_height="0dp" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/listOrderView"
+        android:layout_height="0dp">
+        <TextView
+            android:textSize="18dp"
+            android:textColor="@color/white"
+            android:background="@color/colorOrange"
+            android:padding="16dp"
+            android:gravity="center"
+            android:text="History"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/listOrderView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        </android.support.v7.widget.RecyclerView>
-    </ScrollView>
+            </android.support.v7.widget.RecyclerView>
+        </ScrollView>
+    </LinearLayout>
+
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"

@@ -11,14 +11,16 @@
     <color name="button_normal">#27ABFF</color>
     <color name="background_color">#009688</color>
     <color name="white">#FFFFFF</color>
-    <color name="black">#000000</color>
-    <color name="white_greyish">#EEEEEE</color>
+    <color name="white_greyish">#9B9B9B</color>
+    <color name="textStatus">#98E245</color>
+    <color name="colorOrange">#E20111</color>
+    <color name="colorWhile">#FFFFFF</color>
+    <color name="colorGreen">#4BFF49</color>
+    <color name="colorCam">#FC8119</color>
     <color name="button_selectorcolor">#FFFFFF</color>
     <color name="phone_number">#00FF00</color>
     <color name="facebook">#0000FF</color>
     <color name="email">#FF0000</color>
-    <color name="whitegreyish">#9B9B9B</color>
-    <color name="textStatus">#98E245</color>
-    <color name="colorCam">#FF6339</color>
+    <color name="black">#000000</color>
 
 </resources>

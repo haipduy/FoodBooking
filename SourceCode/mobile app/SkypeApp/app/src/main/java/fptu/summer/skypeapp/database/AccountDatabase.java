@@ -1,4 +1,4 @@
-package fptu.summer.skypeapp.remote;
+package fptu.summer.skypeapp.database;
 
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;

@@ -5,166 +5,325 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ProfileActivity">
+    android:weightSum="1"
+    tools:context=".view.ProfileActivity">
 
-    <Button
-        android:id="@+id/btnLogin"
+    <LinearLayout
+        android:layout_weight="1"
+        android:background="@color/white_greyish"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:background="@color/whitegreyish"
-        android:drawableRight="@drawable/ic_right"
-        android:gravity="center_vertical"
-        android:paddingLeft="20dp"
-        android:text="Login"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:textStyle="bold" />
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1">
-
+        android:layout_height="match_parent">
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:background="@color/colorCam"
             android:orientation="vertical"
-            android:paddingLeft="10dp">
-
-            <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:paddingTop="16dp"
+                android:background="@color/colorCam"
+                android:drawableTop="@drawable/ic_user"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="12">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="10"
-                    android:background="@color/white"
-                    android:drawableRight="@drawable/ic_right"
-                    android:gravity="center_vertical"
-                    android:text="Payment" />
-            </LinearLayout>
-
-            <LinearLayout
+                android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/myAccount"
+                android:paddingBottom="10dp"
+                android:textStyle="normal"
+                android:background="@color/colorCam"
+                android:textColor="@color/colorWhile"
+                android:text="My Account"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="12">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2" />
-
-                <Button
-                    android:id="@+id/btnCredit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="10"
-                    android:background="@color/white"
-                    android:drawableRight="@drawable/ic_right"
-                    android:gravity="center_vertical"
-                    android:text="Credit"
-                    android:onClick="clickToViewCredit"/>
-            </LinearLayout>
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1px"
-                android:background="@color/white_greyish" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="12">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="10"
-                    android:background="@color/white"
-                    android:drawableRight="@drawable/ic_right"
-                    android:gravity="center_vertical"
-                    android:text="History" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1px"
-                android:background="@color/white_greyish" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="12">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="10"
-                    android:background="@color/white"
-                    android:drawableRight="@drawable/ic_right"
-                    android:gravity="center_vertical"
-                    android:text="My account" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1px"
-                android:background="@color/white_greyish" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="12">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="10"
-                    android:background="@color/white"
-                    android:drawableRight="@drawable/ic_right"
-                    android:gravity="center_vertical"
-                    android:onClick="clickToLogOut"
-                    android:text="Log out" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1px"
-                android:background="@color/white_greyish" />
+                android:layout_height="wrap_content" />
         </LinearLayout>
+        <ScrollView
 
+            android:background="@color/colorWhile"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/parentLinearLayout"
+                android:paddingLeft="16dp"
+                android:layout_marginTop="6dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-    </ScrollView>
+                <LinearLayout
+                    android:layout_marginRight="16dp"
+                    android:id="@+id/btnLogin"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:id="@+id/txtLogin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="12">
+
+                        <ImageView
+                            android:layout_marginTop="16dp"
+                            android:layout_marginBottom="16dp"
+                            android:src="@drawable/ic_login"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2" />
+                        <LinearLayout
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginRight="16dp"
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+
+                                android:textColor="@color/black"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="10"
+                                android:background="@color/colorWhile"
+                                android:drawableRight="@drawable/ic_right"
+                                android:gravity="center_vertical"
+                                android:text="Login" />
+                        </LinearLayout>
+                    </LinearLayout>
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="2px"
+                        android:background="@color/white_greyish" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginRight="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="12">
+                    <ImageView
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:src="@drawable/ic_payment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2" />
+
+                    <LinearLayout
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginRight="16dp"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:textColor="@color/black"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="10"
+                            android:background="@color/colorWhile"
+                            android:drawableRight="@drawable/ic_right"
+                            android:gravity="center_vertical"
+                            android:text="Payment" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="2px"
+                    android:background="@color/white_greyish" />
+                <LinearLayout
+                    android:layout_marginRight="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="12">
+
+                    <ImageView
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:src="@drawable/ic_credit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2" />
+
+                    <LinearLayout
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginRight="16dp"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:textColor="@color/black"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="10"
+                            android:background="@color/colorWhile"
+                            android:drawableRight="@drawable/ic_right"
+                            android:gravity="center_vertical"
+                            android:text="Creadit" />
+                    </LinearLayout>
+                </LinearLayout>
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="2px"
+                    android:background="@color/white_greyish" />
+                <LinearLayout
+                    android:layout_marginRight="16dp"
+                    android:id="@+id/btnHistory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="12">
+
+                    <ImageView
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:src="@drawable/ic_history1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2" />
+
+                    <LinearLayout
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginRight="16dp"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:textColor="@color/black"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="10"
+                            android:background="@color/colorWhile"
+                            android:drawableRight="@drawable/ic_right"
+                            android:gravity="center_vertical"
+                            android:text="History" />
+                    </LinearLayout>
+                </LinearLayout>
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="2px"
+                    android:background="@color/white_greyish" />
+                <LinearLayout
+                    android:layout_marginRight="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="12">
+
+                    <ImageView
+                        android:src="@drawable/ic_profile"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2" />
+
+                    <LinearLayout
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginRight="16dp"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:textColor="@color/black"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="10"
+                            android:background="@color/colorWhile"
+                            android:drawableRight="@drawable/ic_right"
+                            android:gravity="center_vertical"
+                            android:text="Profile" />
+                    </LinearLayout>
+                </LinearLayout>
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="2px"
+                    android:background="@color/white_greyish" />
+                <LinearLayout
+                    android:layout_marginRight="16dp"
+                    android:id="@+id/btnQRCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="12">
+
+                    <ImageView
+                        android:src="@drawable/ic_profile"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2" />
+
+                    <LinearLayout
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginRight="16dp"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:textColor="@color/black"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="10"
+                            android:background="@color/colorWhile"
+                            android:drawableRight="@drawable/ic_right"
+                            android:gravity="center_vertical"
+                            android:text="QR Code" />
+                    </LinearLayout>
+                </LinearLayout>
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="2px"
+                    android:background="@color/white_greyish" />
+                <LinearLayout
+                    android:onClick="clickToLogOut"
+                    android:layout_marginRight="16dp"
+                    android:id="@+id/btnLogout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="12">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:layout_weight="2"
+                        android:src="@drawable/ic_logout" />
+                    <LinearLayout
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginRight="16dp"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:textColor="@color/black"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="10"
+                            android:background="@color/colorWhile"
+                            android:drawableRight="@drawable/ic_right"
+                            android:gravity="center_vertical"
+                            android:text="Log out" />
+                    </LinearLayout>
+                </LinearLayout>
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="2px"
+                    android:background="@color/white_greyish" />
+
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -174,6 +333,5 @@
         app:menu="@menu/bottom_toolbar"
         app:itemIconSize="28dp"
         app:itemBackground="@color/white"/>
-
 
 </LinearLayout>

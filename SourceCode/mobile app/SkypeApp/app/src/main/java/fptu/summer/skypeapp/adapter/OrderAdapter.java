@@ -1,4 +1,4 @@
-package fptu.summer.skypeapp.persistence;
+package fptu.summer.skypeapp.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import fptu.summer.skypeapp.HistoryActivity;
 import fptu.summer.skypeapp.R;
 import fptu.summer.skypeapp.model.Order;
 

@@ -1,23 +1,22 @@
-package fptu.summer.skypeapp;
+package fptu.summer.skypeapp.view;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
 
+import fptu.summer.skypeapp.R;
 import fptu.summer.skypeapp.model.Order;
-import fptu.summer.skypeapp.persistence.OrderAdapter;
+import fptu.summer.skypeapp.adapter.OrderAdapter;
 import fptu.summer.skypeapp.service.OrderService;
 import fptu.summer.skypeapp.utils.APIUtils;
 import retrofit2.Call;
@@ -29,6 +28,8 @@ public class HistoryActivity extends AppCompatActivity {
     private RecyclerView listOrderView;
     private OrderService oService;
     private OrderAdapter oAdapter;
+    private TextView txtViewMore;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,12 +59,26 @@ public class HistoryActivity extends AppCompatActivity {
             }
         });
 
+        txtViewMore = findViewById(R.id.txtViewMore);
         listOrderView = findViewById(R.id.listOrderView);
+
+        refreshViewHistory();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshViewHistory();
+    }
+
+    public void refreshViewHistory(){
         if(MainActivity.account != null){
+            txtViewMore.setVisibility(View.GONE);
+
+
             String id =  MainActivity.account.getUserId();
             if(id !=null){
                 Toast.makeText(HistoryActivity.this, id,Toast.LENGTH_SHORT).show();
-
                 oService = APIUtils.getOrderService();
                 oService.getListOrderByUserId(id).enqueue(new Callback<List<Order>>(){
                     @Override
@@ -88,7 +103,7 @@ public class HistoryActivity extends AppCompatActivity {
 
 
         }else{
-            Toast.makeText(HistoryActivity.this, "Login de xem noi dung nay",Toast.LENGTH_SHORT).show();
+            txtViewMore.setVisibility(View.VISIBLE);
         }
     }
 

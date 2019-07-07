@@ -1,4 +1,4 @@
-package fptu.summer.skypeapp;
+package fptu.summer.skypeapp.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
+
+import fptu.summer.skypeapp.R;
 
 public class MasterActivity extends AppCompatActivity {
     Toolbar toolbar ;

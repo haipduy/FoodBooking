@@ -1,4 +1,4 @@
-package fptu.summer.skypeapp.persistence;
+package fptu.summer.skypeapp.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,7 +16,7 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 import java.util.Vector;
 
-import fptu.summer.skypeapp.DetailProductActivity;
+import fptu.summer.skypeapp.view.DetailProductActivity;
 import fptu.summer.skypeapp.R;
 import fptu.summer.skypeapp.model.Product;
 

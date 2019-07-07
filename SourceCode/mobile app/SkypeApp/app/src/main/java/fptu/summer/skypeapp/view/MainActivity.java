@@ -1,11 +1,10 @@
-package fptu.summer.skypeapp;
+package fptu.summer.skypeapp.view;
 
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -20,11 +19,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import fptu.summer.skypeapp.R;
 import fptu.summer.skypeapp.model.Account;
 import fptu.summer.skypeapp.model.AccountRoom;
 import fptu.summer.skypeapp.model.Product;
-import fptu.summer.skypeapp.persistence.ProductDBAdapter;
-import fptu.summer.skypeapp.remote.AccountDatabase;
+import fptu.summer.skypeapp.adapter.ProductDBAdapter;
+import fptu.summer.skypeapp.database.AccountDatabase;
+import fptu.summer.skypeapp.presenter.ProductPresenter;
 import fptu.summer.skypeapp.service.AccountService;
 import fptu.summer.skypeapp.utils.APIUtils;
 import fptu.summer.skypeapp.service.ProductService;
@@ -35,7 +36,7 @@ import retrofit2.Response;
 import static fptu.summer.skypeapp.constants.RetrofitConstants.TIME_OUT;
 
 
-public class MainActivity extends MasterActivity implements SearchView.OnQueryTextListener {
+public class MainActivity extends MasterActivity implements SearchView.OnQueryTextListener, MainView {
     ImageView imgImageViewCart;
 
     private RecyclerView listView;
@@ -46,6 +47,7 @@ public class MainActivity extends MasterActivity implements SearchView.OnQueryTe
     AccountDatabase accountDatabase;
     AccountService accountService;
     AccountRoom accRoom;
+    ProductPresenter productPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,29 +85,25 @@ public class MainActivity extends MasterActivity implements SearchView.OnQueryTe
         searchView.setOnQueryTextListener(this);
 
         listView = findViewById(R.id.listView);
+        initPresenter();
+        productPresenter.loadData();
 
-        pService = APIUtils.getSOService();
-
-        pService.getProducts().enqueue(new Callback<List<Product>>() {
-            @Override
-            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-                if (response.isSuccessful()) {
-                    LinearLayoutManager linearLayoutManager
-                            = new LinearLayoutManager(getApplication(), LinearLayoutManager.VERTICAL, false);
-                    listView.setLayoutManager(linearLayoutManager);
-
-                    adapter = new ProductDBAdapter(getApplicationContext(), response.body());
-
-                    listView.setAdapter(adapter);
-                }
-            }
-            @Override
-            public void onFailure(Call<List<Product>> call, Throwable t) {
-            }
-        });
         getUserAccount();
 
 
+    }
+
+    public void initPresenter() {
+        productPresenter = new ProductPresenter(this);
+    }
+
+    @Override
+    public void displayListProduct(List<Product> productList) {
+        LinearLayoutManager linearLayoutManager
+                = new LinearLayoutManager(getApplication(), LinearLayoutManager.VERTICAL, false);
+        listView.setLayoutManager(linearLayoutManager);
+        adapter = new ProductDBAdapter(getApplicationContext(), productList);
+        listView.setAdapter(adapter);
     }
 
     @Override

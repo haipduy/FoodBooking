@@ -33,11 +33,12 @@
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:ellipsize="end"
-                android:textSize="18dp" />
+                android:textSize="16dp"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/txtStoreName"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:ellipsize="end"
@@ -55,7 +56,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="price"
-                    android:textColor="@color/colorRed"
+                    android:textColor="@color/colorOrange"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 

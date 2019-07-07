@@ -1,12 +1,8 @@
-package fptu.summer.skypeapp;
+package fptu.summer.skypeapp.view;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
@@ -18,9 +14,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import fptu.summer.skypeapp.R;
 import fptu.summer.skypeapp.model.Account;
 import fptu.summer.skypeapp.model.AccountRoom;
-import fptu.summer.skypeapp.remote.AccountDatabase;
+import fptu.summer.skypeapp.database.AccountDatabase;
 import fptu.summer.skypeapp.service.AccountService;
 import fptu.summer.skypeapp.utils.APIUtils;
 import retrofit2.Call;
@@ -28,9 +25,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
-    AccountService accountService;
+
     EditText edtUsername,edtPassword;
     Button btnLogin,btnCancel;
+    AccountService accountService;
     AccountDatabase accountDatabase;
     AccountRoom accRoom = null;
     String username = null;
@@ -46,8 +44,6 @@ public class LoginActivity extends AppCompatActivity {
         edtPassword= findViewById(R.id.edtPassword);
         btnLogin = findViewById(R.id.btnLogin);
         ckShowPass = findViewById(R.id.show_hide_password);
-
-
     }
 
 

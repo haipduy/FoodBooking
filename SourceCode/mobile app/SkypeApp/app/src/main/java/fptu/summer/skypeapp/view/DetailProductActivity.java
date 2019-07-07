@@ -1,4 +1,4 @@
-package fptu.summer.skypeapp;
+package fptu.summer.skypeapp.view;
 
 import android.content.Intent;
 
@@ -16,13 +16,13 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
-import java.io.File;
 import java.util.List;
 
+import fptu.summer.skypeapp.R;
 import fptu.summer.skypeapp.model.Cart;
 import fptu.summer.skypeapp.model.Product;
-import fptu.summer.skypeapp.persistence.ProductDBAdapter;
-import fptu.summer.skypeapp.remote.CartDatabase;
+import fptu.summer.skypeapp.adapter.ProductDBAdapter;
+import fptu.summer.skypeapp.database.CartDatabase;
 
 import static fptu.summer.skypeapp.constants.RetrofitConstants.BASE_URL;
 

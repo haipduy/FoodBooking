@@ -1,4 +1,4 @@
-package fptu.summer.skypeapp.persistence;
+package fptu.summer.skypeapp.adapter;
 
 import android.content.Context;
 
@@ -17,11 +17,11 @@ import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 
 import java.util.List;
 
-import fptu.summer.skypeapp.CartActivity;
+import fptu.summer.skypeapp.view.CartActivity;
 import fptu.summer.skypeapp.service.CallBackTotal;
 import fptu.summer.skypeapp.R;
 import fptu.summer.skypeapp.model.Cart;
-import fptu.summer.skypeapp.remote.CartDatabase;
+import fptu.summer.skypeapp.database.CartDatabase;
 
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolderCart> {

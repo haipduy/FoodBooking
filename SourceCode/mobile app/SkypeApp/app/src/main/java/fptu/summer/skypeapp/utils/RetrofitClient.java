@@ -1,4 +1,4 @@
-package fptu.summer.skypeapp.remote;
+package fptu.summer.skypeapp.utils;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
