@@ -5,7 +5,7 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
-import fptu.summer.skypeapp.model.Cart;
+import fptu.summer.skypeapp.model.entity.Cart;
 import fptu.summer.skypeapp.model.CartDAO;
 
 @Database(entities = {Cart.class}, exportSchema = false, version = 1)

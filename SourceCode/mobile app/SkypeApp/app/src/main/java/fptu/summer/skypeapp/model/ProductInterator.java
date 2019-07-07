@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import fptu.summer.skypeapp.model.entity.Product;
 import fptu.summer.skypeapp.service.ProductService;
 import fptu.summer.skypeapp.utils.APIUtils;
 import retrofit2.Call;

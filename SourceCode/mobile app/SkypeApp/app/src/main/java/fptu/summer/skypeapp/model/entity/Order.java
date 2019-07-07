@@ -1,36 +1,38 @@
-package fptu.summer.skypeapp.model;
+package fptu.summer.skypeapp.model.entity;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
-import java.util.List;
 
-public class ItemRequestModel implements Serializable {
+public class Order implements Serializable {
+
+
+    @SerializedName("orderId")
+    @Expose
+    private int orderId;
     @SerializedName("userId")
     @Expose
     private String userId;
-
+    @SerializedName("orderDate")
+    @Expose
+    private String orderDate;
     @SerializedName("total")
     @Expose
     private float total;
-
     @SerializedName("notes")
     @Expose
     private String notes;
 
-    @SerializedName("listProduct")
-    @Expose
-    private List<ItemModel> listProduct;
-
-    public ItemRequestModel(String userId, float total, String notes, List<ItemModel> listProduct) {
-        this.userId = userId;
-        this.total = total;
-        this.notes = notes;
-        this.listProduct = listProduct;
+    public Order() {
     }
 
-    public ItemRequestModel() {
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
     }
 
     public String getUserId() {
@@ -39,6 +41,14 @@ public class ItemRequestModel implements Serializable {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(String orderDate) {
+        this.orderDate = orderDate;
     }
 
     public float getTotal() {
@@ -55,13 +65,5 @@ public class ItemRequestModel implements Serializable {
 
     public void setNotes(String notes) {
         this.notes = notes;
-    }
-
-    public List<ItemModel> getListProduct() {
-        return listProduct;
-    }
-
-    public void setListProduct(List<ItemModel> listProduct) {
-        this.listProduct = listProduct;
     }
 }

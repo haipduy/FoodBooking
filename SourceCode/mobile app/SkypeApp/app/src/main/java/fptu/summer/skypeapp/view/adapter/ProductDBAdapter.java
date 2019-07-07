@@ -1,4 +1,4 @@
-package fptu.summer.skypeapp.adapter;
+package fptu.summer.skypeapp.view.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,7 +18,7 @@ import java.util.Vector;
 
 import fptu.summer.skypeapp.view.DetailProductActivity;
 import fptu.summer.skypeapp.R;
-import fptu.summer.skypeapp.model.Product;
+import fptu.summer.skypeapp.model.entity.Product;
 
 import static fptu.summer.skypeapp.constants.RetrofitConstants.BASE_URL;
 

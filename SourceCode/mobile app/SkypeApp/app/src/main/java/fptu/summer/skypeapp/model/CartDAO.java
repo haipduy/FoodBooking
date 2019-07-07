@@ -8,7 +8,7 @@ import android.arch.persistence.room.Update;
 
 import java.util.List;
 
-import fptu.summer.skypeapp.model.Cart;
+import fptu.summer.skypeapp.model.entity.Cart;
 
 @Dao
 public interface CartDAO {

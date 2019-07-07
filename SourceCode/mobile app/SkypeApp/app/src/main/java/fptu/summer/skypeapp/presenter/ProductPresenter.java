@@ -4,9 +4,9 @@ import java.util.List;
 
 
 import fptu.summer.skypeapp.model.LoadProductListener;
-import fptu.summer.skypeapp.model.Product;
+import fptu.summer.skypeapp.model.entity.Product;
 import fptu.summer.skypeapp.model.ProductInterator;
-import fptu.summer.skypeapp.view.MainView;
+import fptu.summer.skypeapp.view.interface_view.MainView;
 
 public class ProductPresenter implements LoadProductListener {
     private ProductInterator productInterator;
@@ -17,6 +17,7 @@ public class ProductPresenter implements LoadProductListener {
         this.mainView = mainView;
         productInterator = new ProductInterator(this);
     }
+
     public void loadData() {
         productInterator.loadListProduct();
 

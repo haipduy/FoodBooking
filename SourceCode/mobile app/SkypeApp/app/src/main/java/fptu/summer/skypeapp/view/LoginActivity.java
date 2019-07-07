@@ -15,8 +15,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import fptu.summer.skypeapp.R;
-import fptu.summer.skypeapp.model.Account;
-import fptu.summer.skypeapp.model.AccountRoom;
+import fptu.summer.skypeapp.model.entity.Account;
+import fptu.summer.skypeapp.model.entity.AccountRoom;
 import fptu.summer.skypeapp.database.AccountDatabase;
 import fptu.summer.skypeapp.service.AccountService;
 import fptu.summer.skypeapp.utils.APIUtils;

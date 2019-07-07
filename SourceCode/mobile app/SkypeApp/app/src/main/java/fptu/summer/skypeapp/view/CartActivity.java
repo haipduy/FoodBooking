@@ -21,12 +21,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fptu.summer.skypeapp.R;
-import fptu.summer.skypeapp.model.Account;
-import fptu.summer.skypeapp.model.BankAccount;
-import fptu.summer.skypeapp.model.Cart;
-import fptu.summer.skypeapp.model.ItemModel;
-import fptu.summer.skypeapp.model.ItemRequestModel;
-import fptu.summer.skypeapp.adapter.CartAdapter;
+import fptu.summer.skypeapp.model.entity.Account;
+import fptu.summer.skypeapp.model.entity.BankAccount;
+import fptu.summer.skypeapp.model.entity.Cart;
+import fptu.summer.skypeapp.model.entity.ItemModel;
+import fptu.summer.skypeapp.model.entity.ItemRequestModel;
+import fptu.summer.skypeapp.view.adapter.CartAdapter;
 import fptu.summer.skypeapp.database.CartDatabase;
 import fptu.summer.skypeapp.service.BankService;
 import fptu.summer.skypeapp.service.OrderService;
