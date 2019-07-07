@@ -1,4 +1,4 @@
-package fptu.summer.skypeapp.adapter;
+package fptu.summer.skypeapp.view.adapter;
 
 import android.content.Context;
 
@@ -18,9 +18,8 @@ import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import java.util.List;
 
 import fptu.summer.skypeapp.view.CartActivity;
-import fptu.summer.skypeapp.service.CallBackTotal;
 import fptu.summer.skypeapp.R;
-import fptu.summer.skypeapp.model.Cart;
+import fptu.summer.skypeapp.model.entity.Cart;
 import fptu.summer.skypeapp.database.CartDatabase;
 
 
@@ -30,10 +29,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolderCart
     private CartActivity context;
     //data json
     List<Cart> listCart;
-    CallBackTotal callBackTotal;
 
     public CartAdapter(Context context, List<Cart> listCart) {
-        this.callBackTotal = callBackTotal;
         this.context = (CartActivity) context;
         this.listCart = listCart;
     }
@@ -94,11 +91,25 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolderCart
                     int quanti =Integer.parseInt(btnQuantity.getNumber()) ;
                     cart.setQuantity(quanti);
                     btnQuantity.setNumber(cart.quantity + "");
+                    updateQuantitty(cart);
                     notifyDataSetChanged();
                     context.udpatePrice(listCart);
                 }
             });
         }
+    }
+    private void updateQuantitty(final Cart cart){
+        cartDatabase = CartDatabase.getInstance(context);
+        class UpdateQuantity extends AsyncTask<Void,Void,Void>{
+
+            @Override
+            protected Void doInBackground(Void... voids) {
+                cartDatabase.cartDAO().update(cart);
+                return null;
+            }
+        }
+        UpdateQuantity uq = new UpdateQuantity();
+        uq.execute();
     }
 
 

@@ -228,15 +228,16 @@
                         android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <TextView
-                            android:textColor="@color/black"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="10"
                             android:background="@color/colorWhile"
                             android:drawableRight="@drawable/ic_right"
                             android:gravity="center_vertical"
-                            android:text="Profile" />
+                            android:text="Profile"
+                            android:textColor="@color/black" />
                     </LinearLayout>
                 </LinearLayout>
                 <View

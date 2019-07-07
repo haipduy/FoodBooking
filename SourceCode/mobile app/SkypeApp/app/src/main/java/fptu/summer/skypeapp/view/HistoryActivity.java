@@ -15,20 +15,23 @@ import android.widget.Toast;
 import java.util.List;
 
 import fptu.summer.skypeapp.R;
-import fptu.summer.skypeapp.model.Order;
-import fptu.summer.skypeapp.adapter.OrderAdapter;
+import fptu.summer.skypeapp.model.entity.Order;
+import fptu.summer.skypeapp.presenter.HistoryPresenter;
+import fptu.summer.skypeapp.view.adapter.OrderAdapter;
 import fptu.summer.skypeapp.service.OrderService;
 import fptu.summer.skypeapp.utils.APIUtils;
+import fptu.summer.skypeapp.view.interface_view.HistoryView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HistoryActivity extends AppCompatActivity {
+public class HistoryActivity extends AppCompatActivity implements HistoryView {
 
     private RecyclerView listOrderView;
     private OrderService oService;
     private OrderAdapter oAdapter;
     private TextView txtViewMore;
+    private HistoryPresenter historyPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +64,7 @@ public class HistoryActivity extends AppCompatActivity {
 
         txtViewMore = findViewById(R.id.txtViewMore);
         listOrderView = findViewById(R.id.listOrderView);
-
+        initHistoryPresenter();
         refreshViewHistory();
     }
 
@@ -70,41 +73,30 @@ public class HistoryActivity extends AppCompatActivity {
         super.onResume();
         refreshViewHistory();
     }
+    public void initHistoryPresenter(){
+        historyPresenter = new HistoryPresenter(this);
+    }
+    @Override
+    public void displayHistoryList(List<Order> orderList) {
+        LinearLayoutManager linearLayoutManager
+                = new LinearLayoutManager(getApplication(), LinearLayoutManager.VERTICAL, false);
+        listOrderView.setLayoutManager(linearLayoutManager);
+        oAdapter = new OrderAdapter(getApplicationContext(), orderList);
+        listOrderView.setAdapter(oAdapter);
+    }
 
     public void refreshViewHistory(){
         if(MainActivity.account != null){
             txtViewMore.setVisibility(View.GONE);
-
-
             String id =  MainActivity.account.getUserId();
             if(id !=null){
-                Toast.makeText(HistoryActivity.this, id,Toast.LENGTH_SHORT).show();
-                oService = APIUtils.getOrderService();
-                oService.getListOrderByUserId(id).enqueue(new Callback<List<Order>>(){
-                    @Override
-                    public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
-                        if (response.isSuccessful()){
-                            Toast.makeText(HistoryActivity.this, "Goi duoc roi+"+response.body().size(),Toast.LENGTH_SHORT).show();
-                            LinearLayoutManager linearLayoutManager
-                                    = new LinearLayoutManager(getApplication(), LinearLayoutManager.VERTICAL, false);
-                            listOrderView.setLayoutManager(linearLayoutManager);
-                            oAdapter = new OrderAdapter(getApplicationContext(), response.body());
-                            listOrderView.setAdapter(oAdapter);
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<Order>> call, Throwable t) {
-                        t.printStackTrace();
-                        Toast.makeText(HistoryActivity.this, "Goi api fail",Toast.LENGTH_SHORT).show();
-                    }
-                });
+                historyPresenter.loadHistory(id);
             }
-
 
         }else{
             txtViewMore.setVisibility(View.VISIBLE);
         }
     }
+
 
 }

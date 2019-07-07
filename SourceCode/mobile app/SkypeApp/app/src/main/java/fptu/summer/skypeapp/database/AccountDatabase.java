@@ -6,7 +6,7 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
 import fptu.summer.skypeapp.model.AccountDAO;
-import fptu.summer.skypeapp.model.AccountRoom;
+import fptu.summer.skypeapp.model.entity.AccountRoom;
 
 
 @Database(entities = {AccountRoom.class}, exportSchema = false, version = 1)

@@ -14,8 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import fptu.summer.skypeapp.R;
-import fptu.summer.skypeapp.model.Account;
-import fptu.summer.skypeapp.model.AccountRoom;
+import fptu.summer.skypeapp.model.entity.Account;
+import fptu.summer.skypeapp.model.entity.AccountRoom;
 import fptu.summer.skypeapp.database.AccountDatabase;
 import fptu.summer.skypeapp.service.AccountService;
 
@@ -61,7 +61,6 @@ public class ProfileActivity extends AppCompatActivity {
 
         btnLogin = findViewById(R.id.btnLogin);
         myAccount = findViewById(R.id.myAccount);
-        myWallet = findViewById(R.id.myWallet);
         refreshView();
 
         btnLogin.setOnClickListener(new View.OnClickListener() {

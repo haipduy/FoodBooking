@@ -1,4 +1,4 @@
-package fptu.summer.skypeapp.model;
+package fptu.summer.skypeapp.model.entity;
 
 import java.io.Serializable;
 import java.sql.Date;

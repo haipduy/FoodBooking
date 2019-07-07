@@ -1,4 +1,4 @@
-package fptu.summer.skypeapp.adapter;
+package fptu.summer.skypeapp.view.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import fptu.summer.skypeapp.R;
-import fptu.summer.skypeapp.model.Order;
+import fptu.summer.skypeapp.model.entity.Order;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolderOrder> {
     private Context context;

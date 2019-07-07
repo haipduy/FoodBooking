@@ -19,9 +19,9 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import fptu.summer.skypeapp.R;
-import fptu.summer.skypeapp.model.Cart;
-import fptu.summer.skypeapp.model.Product;
-import fptu.summer.skypeapp.adapter.ProductDBAdapter;
+import fptu.summer.skypeapp.model.entity.Cart;
+import fptu.summer.skypeapp.model.entity.Product;
+import fptu.summer.skypeapp.view.adapter.ProductDBAdapter;
 import fptu.summer.skypeapp.database.CartDatabase;
 
 import static fptu.summer.skypeapp.constants.RetrofitConstants.BASE_URL;
