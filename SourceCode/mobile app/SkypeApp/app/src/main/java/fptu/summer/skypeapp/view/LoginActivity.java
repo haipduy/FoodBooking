@@ -20,6 +20,7 @@ import fptu.summer.skypeapp.model.entity.AccountRoom;
 import fptu.summer.skypeapp.database.AccountDatabase;
 import fptu.summer.skypeapp.service.AccountService;
 import fptu.summer.skypeapp.utils.APIUtils;
+import fptu.summer.skypeapp.utils.BundleString;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     AccountDatabase accountDatabase;
     AccountRoom accRoom = null;
     String username = null;
+    private String data;
 
     CheckBox ckShowPass;
 
@@ -44,6 +46,8 @@ public class LoginActivity extends AppCompatActivity {
         edtPassword= findViewById(R.id.edtPassword);
         btnLogin = findViewById(R.id.btnLogin);
         ckShowPass = findViewById(R.id.show_hide_password);
+        data = (String) getIntent().getSerializableExtra(BundleString.BUNDLE_QR_CODE);
+        Toast.makeText(getApplicationContext(), data, Toast.LENGTH_SHORT).show();
     }
 
 

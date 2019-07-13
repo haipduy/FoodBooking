@@ -21,6 +21,7 @@ import fptu.summer.skypeapp.R;
 import fptu.summer.skypeapp.model.entity.Product;
 
 import static fptu.summer.skypeapp.constants.RetrofitConstants.BASE_URL;
+import static fptu.summer.skypeapp.utils.BundleString.PRODUCT_CODE;
 
 
 public class ProductDBAdapter extends RecyclerView.Adapter<ProductDBAdapter.ViewHolderProduct> {
@@ -69,7 +70,7 @@ public class ProductDBAdapter extends RecyclerView.Adapter<ProductDBAdapter.View
     }
 
     public class ViewHolderProduct extends RecyclerView.ViewHolder {
-        public static final String PRODUCT_CODE = "PRODUCT_CODE_MAIN";
+
         private ImageView imageView;
         private TextView txtProductName, txtStoreName, txtPrice, txtPriceDiscount;
         private LinearLayout container;

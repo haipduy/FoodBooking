@@ -20,7 +20,6 @@ public class ProductPresenter implements LoadProductListener {
 
     public void loadData() {
         productInterator.loadListProduct();
-
     }
 
     @Override
@@ -30,7 +29,6 @@ public class ProductPresenter implements LoadProductListener {
 
     @Override
     public void onLoadProductFailure(String message) {
-
-        System.out.println(message);
+       // code for error with message
     }
 }

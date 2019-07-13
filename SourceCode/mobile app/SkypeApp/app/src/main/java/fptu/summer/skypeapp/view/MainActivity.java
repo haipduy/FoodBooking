@@ -37,6 +37,7 @@ import java.util.Map;
 import fptu.summer.skypeapp.R;
 import fptu.summer.skypeapp.model.entity.Account;
 import fptu.summer.skypeapp.model.entity.AccountRoom;
+import fptu.summer.skypeapp.model.entity.BankAccount;
 import fptu.summer.skypeapp.model.entity.Product;
 import fptu.summer.skypeapp.view.adapter.ProductDBAdapter;
 import fptu.summer.skypeapp.database.AccountDatabase;
@@ -60,11 +61,11 @@ public class MainActivity extends MasterActivity implements SearchView.OnQueryTe
     private SearchView searchView;
     private ProductDBAdapter adapter;
     public static Account account = null;
+    public static BankAccount bankAccount = null;
     AccountDatabase accountDatabase;
     AccountService accountService;
     AccountRoom accRoom;
     ProductPresenter productPresenter;
-
 
 
     @Override

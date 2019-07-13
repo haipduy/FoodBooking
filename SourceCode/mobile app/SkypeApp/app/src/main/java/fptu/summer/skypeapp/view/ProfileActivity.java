@@ -19,6 +19,11 @@ import fptu.summer.skypeapp.model.entity.AccountRoom;
 import fptu.summer.skypeapp.database.AccountDatabase;
 import fptu.summer.skypeapp.service.AccountService;
 
+import static fptu.summer.skypeapp.utils.BundleString.BUNDLE_QR_CODE;
+import static fptu.summer.skypeapp.utils.BundleString.PRODUCT_CODE;
+import static fptu.summer.skypeapp.utils.BundleString.REQUEST_CODE_LOGIN;
+import static fptu.summer.skypeapp.utils.BundleString.REQUEST_CODE_QRCODE;
+
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -28,8 +33,11 @@ public class ProfileActivity extends AppCompatActivity {
     LinearLayout btnLogin;
     String username = null;
     Account account;
-    Button myAccount,myWallet;
+    Button myAccount, myWallet;
     LinearLayout btnQRCode;
+
+    String data = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +67,6 @@ public class ProfileActivity extends AppCompatActivity {
                 return true;
             }
         });
-
         btnLogin = findViewById(R.id.btnLogin);
         myAccount = findViewById(R.id.myAccount);
         refreshView();
@@ -68,11 +75,16 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivityForResult(intent, 123);
+                startActivityForResult(intent, REQUEST_CODE_LOGIN);
             }
         });
 
 
+//        data = (String) getIntent().getSerializableExtra(BUNDLE_QR_CODE);
+//
+//        if (data != null) {
+//            QRCodeEncoder(data);
+//        }
     }
 
 
@@ -83,11 +95,10 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-
+    private void QRCodeEncoder(String data) {
+        Toast.makeText(ProfileActivity.this, data, Toast.LENGTH_SHORT).show();
     }
+
 
     public void clickToLogOut(View view) {
 
@@ -103,7 +114,9 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(Boolean aBoolean) {
                 if (!aBoolean) {
+
                     Toast.makeText(ProfileActivity.this, "Log out fail", Toast.LENGTH_SHORT).show();
+
                 }
             }
         };
@@ -125,7 +138,8 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     public void clickQRCode(View view) {
-        Intent intent = new Intent(ProfileActivity.this, QRCodeActivity.class);
-        startActivity(intent);
+
+        Intent intent = new Intent(ProfileActivity.this, CamViewActivity.class);
+        startActivityForResult(intent, REQUEST_CODE_QRCODE);
     }
 }

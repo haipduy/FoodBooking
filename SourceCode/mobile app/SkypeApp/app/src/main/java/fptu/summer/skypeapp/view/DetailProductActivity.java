@@ -25,6 +25,7 @@ import fptu.summer.skypeapp.view.adapter.ProductDBAdapter;
 import fptu.summer.skypeapp.database.CartDatabase;
 
 import static fptu.summer.skypeapp.constants.RetrofitConstants.BASE_URL;
+import static fptu.summer.skypeapp.utils.BundleString.PRODUCT_CODE;
 
 public class DetailProductActivity extends MasterActivity {
     private Product product;
@@ -63,7 +64,7 @@ public class DetailProductActivity extends MasterActivity {
             }
         });
 
-        product = (Product) getIntent().getSerializableExtra(ProductDBAdapter.ViewHolderProduct.PRODUCT_CODE);
+        product = (Product) getIntent().getSerializableExtra(PRODUCT_CODE);
 
         imgProduct = findViewById(R.id.imgProduct);
         //get all id in view
