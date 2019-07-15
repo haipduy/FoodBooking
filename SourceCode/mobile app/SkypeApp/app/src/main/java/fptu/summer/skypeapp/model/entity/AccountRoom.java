@@ -13,8 +13,8 @@ public class AccountRoom implements Serializable {
     public int id;
     @ColumnInfo(name = "userId")
     private String userId;
-    @ColumnInfo(name = "fullname")
-    private String fullname;
+//    @ColumnInfo(name = "fullname")
+//    private String fullname;
     @ColumnInfo(name = "userPassword")
     private String userPassword;
     @ColumnInfo(name = "timeLogin")
@@ -23,13 +23,13 @@ public class AccountRoom implements Serializable {
     public AccountRoom() {
     }
 
-    public String getFullname() {
-        return fullname;
-    }
-
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
-    }
+//    public String getFullname() {
+//        return fullname;
+//    }
+//
+//    public void setFullname(String fullname) {
+//        this.fullname = fullname;
+//    }
 
 
     public int getId() {

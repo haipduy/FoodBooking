@@ -159,7 +159,7 @@ public class CartActivity extends MasterActivity {
     public void clicktoSubmitOrder(View view) {
         account = MainActivity.account;
         BankAccount bankAccount = MainActivity.bankAccount;
-        displayNotification();
+
 
 
         checkBankAccount(account, bankAccount);
@@ -206,6 +206,7 @@ public class CartActivity extends MasterActivity {
                                     GetListItem();
                                     Intent intent = new Intent(CartActivity.this, MainActivity.class);
                                     startActivity(intent);
+
 
                                 } else {
                                     Toast.makeText(CartActivity.this, "Create order fail", Toast.LENGTH_SHORT).show();
@@ -274,6 +275,7 @@ public class CartActivity extends MasterActivity {
         }
         DeleteItem dt = new DeleteItem();
         dt.execute();
+        displayNotification();
     }
 
 

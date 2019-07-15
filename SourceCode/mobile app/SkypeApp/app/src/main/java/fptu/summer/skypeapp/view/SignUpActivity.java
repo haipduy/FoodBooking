@@ -78,7 +78,7 @@ public class SignUpActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     accRoom = new AccountRoom();
-                    accRoom.setFullname(fullnameString);
+//                    accRoom.setFullname(fullnameString);
                     accRoom.setUserPassword(passwordString);
                     accRoom.setTimeLogin(new Date().getTime());
                     accountDatabase.accountDAO().insertAccountRoom(accRoom);
