@@ -38,7 +38,8 @@
             android:name=".view.ProfileActivity"
             android:label="@string/title_activity_profile"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".view.CartActivity" />
+        <activity android:name=".view.CartActivity"
+            android:label="CartActivity"/>
         <activity
             android:name=".view.DetailProductActivity"
             android:label="@string/title_activity_detail_product" />

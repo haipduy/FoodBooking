@@ -1,5 +1,8 @@
 package fptu.summer.skypeapp.view;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -7,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -50,6 +54,10 @@ public class CartActivity extends MasterActivity {
 
     private float totalMoney = 0;
     private boolean bankAccountIsExist = true;
+
+    NotificationManager manager;
+    int NotificationId = 999;
+    int numMsg = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,6 +159,7 @@ public class CartActivity extends MasterActivity {
     public void clicktoSubmitOrder(View view) {
         account = MainActivity.account;
         BankAccount bankAccount = MainActivity.bankAccount;
+        displayNotification();
 
 
         checkBankAccount(account, bankAccount);
@@ -284,6 +293,30 @@ public class CartActivity extends MasterActivity {
             txtAmountcart.setText("$ " + amount + " Dong");
         }
 
+
+    }
+
+
+
+    private void displayNotification() {
+        NotificationCompat.Builder buider = new NotificationCompat.Builder(this);
+        buider.setContentTitle("Thông Báo");
+        buider.setContentText("Đặt hàng thành công!");
+        buider.setTicker("Message Alert");
+        buider.setSmallIcon(R.drawable.ic_notifications_black_24dp);
+        buider.setNumber(numMsg);
+
+        Intent intent = new Intent(this, ResultActivity.class);
+
+        TaskStackBuilder stack = TaskStackBuilder.create(this);
+        stack.addParentStack(ResultActivity.class);
+        stack.addNextIntent(intent);
+
+        PendingIntent pending = stack.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
+        buider.setContentIntent(pending);
+
+        manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.notify(NotificationId, buider.build());
 
     }
 
