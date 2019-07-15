@@ -39,6 +39,7 @@ import fptu.summer.skypeapp.model.entity.Account;
 import fptu.summer.skypeapp.model.entity.AccountRoom;
 import fptu.summer.skypeapp.model.entity.BankAccount;
 import fptu.summer.skypeapp.model.entity.Product;
+import fptu.summer.skypeapp.service.BankService;
 import fptu.summer.skypeapp.view.adapter.ProductDBAdapter;
 import fptu.summer.skypeapp.database.AccountDatabase;
 import fptu.summer.skypeapp.presenter.ProductPresenter;
@@ -60,12 +61,14 @@ public class MainActivity extends MasterActivity implements SearchView.OnQueryTe
     private ProductService pService;
     private SearchView searchView;
     private ProductDBAdapter adapter;
+    private AccountDatabase accountDatabase;
+    private AccountService accountService;
+    private BankService bankService;
+    private AccountRoom accRoom;
+    private ProductPresenter productPresenter;
+
     public static Account account = null;
     public static BankAccount bankAccount = null;
-    AccountDatabase accountDatabase;
-    AccountService accountService;
-    AccountRoom accRoom;
-    ProductPresenter productPresenter;
 
 
     @Override
@@ -172,7 +175,7 @@ public class MainActivity extends MasterActivity implements SearchView.OnQueryTe
             public void onResponse(Call<Account> call, Response<Account> response) {
                 if (response.isSuccessful()) {
                     MainActivity.account = response.body();
-
+                    getbankAccount();
                     AsyncTask<Void, Void, Boolean> asyncTask = new AsyncTask<Void, Void, Boolean>() {
                         @Override
                         protected Boolean doInBackground(Void... voids) {
@@ -199,5 +202,27 @@ public class MainActivity extends MasterActivity implements SearchView.OnQueryTe
     public void clickToViewCart(View view) {
         Intent intent = new Intent(MainActivity.this, CartActivity.class);
         startActivity(intent);
+    }
+
+    public void getbankAccount() {
+        String userID = account.getUserId();
+        bankService = APIUtils.bankService();
+        bankService.getBankAccountByUserId(userID).enqueue(new Callback<BankAccount>() {
+            @Override
+            public void onResponse(Call<BankAccount> call, Response<BankAccount> response) {
+                if (response.isSuccessful()) {
+                    MainActivity.bankAccount = response.body();
+                } else {
+                    Toast.makeText(getApplicationContext(), "chua co tai khoan ngan hang", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BankAccount> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+
+
     }
 }

@@ -4,13 +4,13 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import fptu.summer.skypeapp.R;
@@ -19,8 +19,6 @@ import fptu.summer.skypeapp.model.entity.AccountRoom;
 import fptu.summer.skypeapp.database.AccountDatabase;
 import fptu.summer.skypeapp.service.AccountService;
 
-import static fptu.summer.skypeapp.utils.BundleString.BUNDLE_QR_CODE;
-import static fptu.summer.skypeapp.utils.BundleString.PRODUCT_CODE;
 import static fptu.summer.skypeapp.utils.BundleString.REQUEST_CODE_LOGIN;
 import static fptu.summer.skypeapp.utils.BundleString.REQUEST_CODE_QRCODE;
 
@@ -30,13 +28,14 @@ public class ProfileActivity extends AppCompatActivity {
     AccountService accountService;
     AccountDatabase accountDatabase;
     AccountRoom accRoom;
-    LinearLayout btnLogin;
+    LinearLayout btnLogin, btnBankAccount;
     String username = null;
     Account account;
-    Button myAccount, myWallet;
+    TextView myAccount, myWallet;
     LinearLayout btnQRCode;
 
     String data = null;
+
 
 
     @Override
@@ -68,7 +67,10 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
         btnLogin = findViewById(R.id.btnLogin);
+        btnBankAccount = findViewById(R.id.btnBankAccount);
+
         myAccount = findViewById(R.id.myAccount);
+
         refreshView();
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -85,6 +87,7 @@ public class ProfileActivity extends AppCompatActivity {
 //        if (data != null) {
 //            QRCodeEncoder(data);
 //        }
+
     }
 
 
@@ -138,8 +141,28 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     public void clickQRCode(View view) {
+        if (MainActivity.account == null) {
+            Intent  intent = new Intent(ProfileActivity.this, LoginActivity.class);
+            startActivity(intent);
+        } else if(MainActivity.bankAccount!=null){
+            //co account
+            Intent intent = new Intent(ProfileActivity.this, CamViewActivity.class);
+            startActivityForResult(intent, REQUEST_CODE_QRCODE);
+        }else{
+            Toast.makeText(ProfileActivity.this, "Bạn chưa có tài khoản ngân hàng", Toast.LENGTH_SHORT).show();
+        }
 
-        Intent intent = new Intent(ProfileActivity.this, CamViewActivity.class);
-        startActivityForResult(intent, REQUEST_CODE_QRCODE);
+    }
+
+    public void clickToviewBankAccount(View view) {
+        if (MainActivity.account == null) {
+          Intent  intent = new Intent(ProfileActivity.this, LoginActivity.class);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(ProfileActivity.this, BankActivity.class);
+            startActivity(intent);
+        }
+
+
     }
 }

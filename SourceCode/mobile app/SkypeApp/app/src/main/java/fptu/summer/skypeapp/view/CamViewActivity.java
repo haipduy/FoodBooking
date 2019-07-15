@@ -18,6 +18,7 @@ import android.widget.Toast;
 import eu.livotov.labs.android.camview.ScannerLiveView;
 import eu.livotov.labs.android.camview.scanner.decoder.zxing.ZXDecoder;
 import fptu.summer.skypeapp.R;
+import fptu.summer.skypeapp.model.entity.BankAccount;
 import fptu.summer.skypeapp.presenter.CamViewPresenter;
 import fptu.summer.skypeapp.utils.BundleString;
 
@@ -31,7 +32,6 @@ public class CamViewActivity extends AppCompatActivity {
     private ScannerLiveView mCamera;
     private TextView txtAmountQRcode;
     private Button btnNapTien;
-    private float amount = 0;
     private CamViewPresenter camViewPresenter;
 
     @Override
@@ -44,8 +44,7 @@ public class CamViewActivity extends AppCompatActivity {
 
     private void initialView() {
         mCamera = findViewById(R.id.camView);
-        txtAmountQRcode = findViewById(R.id.txtAmountQRcode);
-        btnNapTien = findViewById(R.id.btnNapTien);
+        camViewPresenter = new CamViewPresenter(this);
     }
 
     private void initialData() {
@@ -126,10 +125,9 @@ public class CamViewActivity extends AppCompatActivity {
     }
 
     private void scanQRCode(String data) {
-//        Intent intent = new Intent(CamViewActivity.this, ProfileActivity.class);
-//        intent.putExtra(BundleString.BUNDLE_QR_CODE, data);
-//        startActivity(intent);
-//        finish();
+
+        float amount = 0;
+        boolean result = false;
 
         switch (data) {
             case SCAN_50000:
@@ -147,27 +145,23 @@ public class CamViewActivity extends AppCompatActivity {
 
         }
         if (amount != 0) {
-            txtAmountQRcode.setText("Mệnh giá: " + amount);
+            BankAccount bankAccount = MainActivity.bankAccount;
+            int bankId = bankAccount.getBankId();
+            camViewPresenter.updateMoneyBank(bankId, amount);
+
         } else {
-            amount = 0;
-            txtAmountQRcode.setText("Mệnh giá: " + "0");
-            Toast.makeText(CamViewActivity.this, "không phù hợp", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CamViewActivity.this, "QR Code không phù hợp, vui lòng thử lại!", Toast.LENGTH_SHORT).show();
+
         }
+        Intent intent = new Intent(CamViewActivity.this, ProfileActivity.class);
+        startActivity(intent);
 
     }
 
-    public void clickToNapTien(View view) {
-        if (amount == 0) {
-            Toast.makeText(CamViewActivity.this, "Vui lòng thử lại", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // call api to update account
-        boolean result = camViewPresenter.updateMoneyBank(amount);
-        if(result){
-
-        }
-
-
-    }
+//    public void clickToNapTien(View view) {
+//        Toast.makeText(CamViewActivity.this, "Nap duoc roi", Toast.LENGTH_SHORT).show();
+//        Intent intent = new Intent(CamViewActivity.this, BankActivity.class);
+//        startActivity(intent);
+//
+//    }
 }

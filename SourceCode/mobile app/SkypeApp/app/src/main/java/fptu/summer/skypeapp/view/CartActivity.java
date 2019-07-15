@@ -45,6 +45,8 @@ public class CartActivity extends MasterActivity {
     private OrderService orderService;
     private BankService bankService;
 
+    private TextView txtAmountcart;
+
 
     private float totalMoney = 0;
     private boolean bankAccountIsExist = true;
@@ -79,6 +81,7 @@ public class CartActivity extends MasterActivity {
         });
 
         txtNotes = findViewById(R.id.txtNotes);
+        txtAmountcart = findViewById(R.id.txtAmountCart);
 
         toolbar = findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
@@ -94,6 +97,7 @@ public class CartActivity extends MasterActivity {
         txtTotal = findViewById(R.id.total);
 
         GetListItem();
+        loadBankAccount();
 
     }
 
@@ -146,9 +150,13 @@ public class CartActivity extends MasterActivity {
 
     public void clicktoSubmitOrder(View view) {
         account = MainActivity.account;
+        BankAccount bankAccount = MainActivity.bankAccount;
 
-        checkBankAccount(account);
+
+        checkBankAccount(account, bankAccount);
+
         if (bankAccountIsExist) {
+
             System.out.println("co account va co tai khoan roi");
 
             AsyncTask<Void, Void, List<Cart>> asyncTask = new AsyncTask<Void, Void, List<Cart>>() {
@@ -209,52 +217,32 @@ public class CartActivity extends MasterActivity {
                 }
             };
             asyncTask.execute();
-        } else {
-            Toast.makeText(CartActivity.this, "account is invalid", Toast.LENGTH_SHORT).show();
         }
 
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadBankAccount();
+    }
 
     //check account co tai tai khoan hay khong
-    private void checkBankAccount(Account account) {
+    private void checkBankAccount(Account account, BankAccount bankAccount) {
         if (account == null) {
+            Toast.makeText(CartActivity.this, "Chua loginn", Toast.LENGTH_SHORT).show();
             bankAccountIsExist = false;
-        } else {
-            String userID = account.getUserId();
-            System.out.println("User id -----------" + userID);
-            // call api lay tai khaon ngan hang
-            bankService = APIUtils.bankService();
-            bankService.getBankAccountByUserId(userID).enqueue(new Callback<BankAccount>() {
-                @Override
-                public void onResponse(Call<BankAccount> call, Response<BankAccount> response) {
-                    if (response.isSuccessful()) {
-                        BankAccount bankAccount = response.body();
-                        if (bankAccount != null) {
-                            // check tai khoan co du thanh toan hay khong.
-                            float accMoney = bankAccount.getAccMoney();
-                            if (accMoney == 0 || accMoney < totalMoney) {
-                                Toast.makeText(CartActivity.this, "Tai khoan thanh toan cua ban khong du", Toast.LENGTH_SHORT).show();
-                                bankAccountIsExist = false;
-                            }
-                        }
-
-                    } else {
-                        Toast.makeText(CartActivity.this, "Ban chua co tai khoan thanh toan", Toast.LENGTH_SHORT).show();
-                        bankAccountIsExist = false;
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<BankAccount> call, Throwable t) {
-                    t.printStackTrace();
-                    Toast.makeText(CartActivity.this, "Goi api fail", Toast.LENGTH_SHORT).show();
-                    bankAccountIsExist = false;
-
-                }
-            });
-
+            return;
+        } else if (bankAccount == null) {
+            Toast.makeText(CartActivity.this, "Ban chua co tai khoan thanh toan", Toast.LENGTH_SHORT).show();
+            bankAccountIsExist = false;
+        } else if (bankAccount != null) {
+            float accMoney = bankAccount.getAccMoney();
+            if (accMoney == 0 || accMoney < totalMoney) {
+                Toast.makeText(CartActivity.this, "Tai khoan thanh toan cua ban khong du", Toast.LENGTH_SHORT).show();
+                bankAccountIsExist = false;
+            }
         }
 
     }
@@ -277,6 +265,26 @@ public class CartActivity extends MasterActivity {
         }
         DeleteItem dt = new DeleteItem();
         dt.execute();
+    }
+
+
+    public void loadBankAccount() {
+        Account account = MainActivity.account;
+        if (account == null) {
+            txtAmountcart.setText(" 0 Dong");
+        } else {
+            BankAccount bankAccount = MainActivity.bankAccount;
+
+            if (bankAccount == null) {
+                txtAmountcart.setText(" 0 Dong");
+                return;
+            }
+
+            int amount = (int) bankAccount.getAccMoney();
+            txtAmountcart.setText("$ " + amount + " Dong");
+        }
+
+
     }
 
 
