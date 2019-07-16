@@ -275,7 +275,7 @@ public class CartActivity extends MasterActivity {
         }
         DeleteItem dt = new DeleteItem();
         dt.execute();
-        displayNotification();
+
     }
 
 
