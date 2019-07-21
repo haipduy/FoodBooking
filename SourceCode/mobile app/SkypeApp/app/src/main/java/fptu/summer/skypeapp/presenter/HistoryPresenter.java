@@ -27,6 +27,6 @@ public class HistoryPresenter implements LoadHistoryListener {
 
     @Override
     public void onLoadOrderFailure(String message) {
-        System.out.println(message);
+
     }
 }

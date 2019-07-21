@@ -2,6 +2,7 @@ package fptu.summer.skypeapp.view.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,12 +11,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
 import java.util.List;
 import java.util.Vector;
 
+import fptu.summer.skypeapp.database.CartDatabase;
+import fptu.summer.skypeapp.model.entity.Cart;
 import fptu.summer.skypeapp.view.DetailProductActivity;
 import fptu.summer.skypeapp.R;
 import fptu.summer.skypeapp.model.entity.Product;
@@ -28,8 +32,9 @@ public class ProductDBAdapter extends RecyclerView.Adapter<ProductDBAdapter.View
     // la actiivity hien hanh
     private Context context;
     //data json
-    List<Product> productList;
-    List<Product> copyProductList;
+    private List<Product> productList;
+    private List<Product> copyProductList;
+    private CartAdapter cartDatabase;
 
     public ProductDBAdapter(Context context, List<Product> products) {
         this.context = context;
@@ -98,6 +103,7 @@ public class ProductDBAdapter extends RecyclerView.Adapter<ProductDBAdapter.View
             String htmlcontent = "<strike>" + product.getProPrice() + "00</strike>";
 
             txtPrice.setText(android.text.Html.fromHtml(htmlcontent));
+
             container.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -111,4 +117,5 @@ public class ProductDBAdapter extends RecyclerView.Adapter<ProductDBAdapter.View
         }
 
     }
+
 }

@@ -2,11 +2,13 @@ package fptu.summer.skypeapp.view;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -150,7 +152,8 @@ public class CamViewActivity extends AppCompatActivity {
             camViewPresenter.updateMoneyBank(bankId, amount);
 
         } else {
-            Toast.makeText(CamViewActivity.this, "QR Code không phù hợp, vui lòng thử lại!", Toast.LENGTH_SHORT).show();
+            String msg="QR Code không phù hợp, vui lòng thử lại!";
+            showDialogQRCode(msg);
 
         }
         Intent intent = new Intent(CamViewActivity.this, ProfileActivity.class);
@@ -158,10 +161,20 @@ public class CamViewActivity extends AppCompatActivity {
 
     }
 
-//    public void clickToNapTien(View view) {
-//        Toast.makeText(CamViewActivity.this, "Nap duoc roi", Toast.LENGTH_SHORT).show();
-//        Intent intent = new Intent(CamViewActivity.this, BankActivity.class);
-//        startActivity(intent);
-//
-//    }
+    public void showDialogQRCode(String msg) {
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+        builder1.setMessage(msg);
+        builder1.setCancelable(true);
+        builder1.setPositiveButton(
+                "Ok",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
+
 }

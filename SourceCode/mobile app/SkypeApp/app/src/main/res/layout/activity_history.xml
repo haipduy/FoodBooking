@@ -3,37 +3,41 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="1"
-    android:layout_height="match_parent"
     tools:context=".view.HistoryActivity">
 
     <TextView
-        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorCam"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="Your history"
+        android:textColor="@color/white"
+        android:textSize="18dp" />
+
+    <TextView
         android:id="@+id/txtViewMore"
-        android:textStyle="bold"
-        android:textSize="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:gravity="center"
         android:text="Login to show more"
-        android:layout_width="match_parent"
-        android:layout_height="0dp" />
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="0dp">
-        <TextView
-            android:textSize="18dp"
-            android:textColor="@color/white"
-            android:background="@color/colorOrange"
-            android:padding="16dp"
-            android:gravity="center"
-            android:text="History"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/listOrderView"
                 android:layout_width="match_parent"
@@ -49,7 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        app:menu="@menu/bottom_toolbar"
+        app:itemBackground="@color/white"
         app:itemIconSize="28dp"
-        app:itemBackground="@color/white"/>
+        app:menu="@menu/bottom_toolbar" />
 </LinearLayout>

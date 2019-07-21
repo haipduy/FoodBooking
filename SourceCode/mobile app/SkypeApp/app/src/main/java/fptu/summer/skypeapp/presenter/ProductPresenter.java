@@ -21,7 +21,6 @@ public class ProductPresenter implements LoadProductListener {
     public void loadData() {
         productInterator.loadListProduct();
     }
-
     @Override
     public void onLoadProductSuccess(List<Product> listProduct) {
         mainView.displayListProduct(listProduct);
@@ -29,6 +28,6 @@ public class ProductPresenter implements LoadProductListener {
 
     @Override
     public void onLoadProductFailure(String message) {
-       // code for error with message
+        // code for error with message
     }
 }

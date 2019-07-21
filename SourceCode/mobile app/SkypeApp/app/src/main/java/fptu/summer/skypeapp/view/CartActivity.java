@@ -4,13 +4,17 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.NotificationCompat;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -39,15 +43,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CartActivity extends MasterActivity {
+public class CartActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private CartAdapter cartAdapter;
     private CartDatabase cartDatabase;
     private TextView txtTotal, txtNotes;
-    private Toolbar toolbar;
     private Account account;
     private OrderService orderService;
-    private BankService bankService;
 
     private TextView txtAmountcart;
 
@@ -63,37 +65,9 @@ public class CartActivity extends MasterActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setSelectedItemId(R.id.action_orders);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.action_homes:
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(intent);
-                        break;
-                    case R.id.action_orders:
-                        intent = new Intent(getApplicationContext(), HistoryActivity.class);
-                        startActivity(intent);
-                        break;
-                    case R.id.action_account:
-                        intent = new Intent(getApplicationContext(), ProfileActivity.class);
-                        startActivity(intent);
-
-                        break;
-                }
-                return true;
-            }
-        });
-
         txtNotes = findViewById(R.id.txtNotes);
         txtAmountcart = findViewById(R.id.txtAmountCart);
 
-        toolbar = findViewById(R.id.toolBar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Cart");
 
         recyclerView = findViewById(R.id.listCart);
         LinearLayoutManager linearLayoutManager
@@ -145,6 +119,27 @@ public class CartActivity extends MasterActivity {
         gl.execute();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadBankAccount();
+    }
+
+    // request code 222.
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 222) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                // The user picked a contact.
+                // The Intent's data Uri identifies which contact was selected.
+
+                // Do something with the contact here (bigger example below)
+                loadBankAccount();
+            }
+        }
+    }
 
     public void udpatePrice(List<Cart> cartList) {
         totalMoney = 0;
@@ -152,7 +147,8 @@ public class CartActivity extends MasterActivity {
             float totalOneProduct = carttt.getPrice() * carttt.getQuantity();
             totalMoney += totalOneProduct;
         }
-        txtTotal.setText(totalMoney + "");
+        int total1 = (int) totalMoney;
+        txtTotal.setText(totalMoney + "00 dong");
         Toast.makeText(CartActivity.this, "Update price successfully!", Toast.LENGTH_SHORT).show();
     }
 
@@ -186,7 +182,6 @@ public class CartActivity extends MasterActivity {
                     if (!carts.isEmpty()) {
                         for (Cart cart : carts) {
                             ItemModel item = new ItemModel(cart.productId, cart.storeId, cart.quantity, cart.price);
-                            System.out.println(item.getProductId() + "=------------------------------------product ID");
                             if (listProduct == null) {
                                 listProduct = new ArrayList<>();
                             }
@@ -201,14 +196,17 @@ public class CartActivity extends MasterActivity {
                             @Override
                             public void onResponse(Call<Void> call, Response<Void> response) {
                                 if (response.isSuccessful()) {
-                                    Toast.makeText(CartActivity.this, "Create order OK", Toast.LENGTH_SHORT).show();
+                                    showDialogCreateOrderOK();
+//                                    Toast.makeText(CartActivity.this, "Create order OK", Toast.LENGTH_SHORT).show();
                                     deleteAllItem();
                                     GetListItem();
+                                    displayNotification();
                                     Intent intent = new Intent(CartActivity.this, MainActivity.class);
                                     startActivity(intent);
 
 
                                 } else {
+                                    showDialog("Mua hàng thất bại, vui lòng thử lại.");
                                     Toast.makeText(CartActivity.this, "Create order fail", Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -221,7 +219,8 @@ public class CartActivity extends MasterActivity {
                             }
                         });
                     } else {
-                        Toast.makeText(CartActivity.this, "Cart is empty", Toast.LENGTH_SHORT).show();
+                        showDialog("Giỏ hàng trống, vui lòng chọn sản phẩm");
+//                        Toast.makeText(CartActivity.this, "Cart is empty", Toast.LENGTH_SHORT).show();
                     }
 
                 }
@@ -232,25 +231,24 @@ public class CartActivity extends MasterActivity {
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        loadBankAccount();
-    }
+
 
     //check account co tai tai khoan hay khong
     private void checkBankAccount(Account account, BankAccount bankAccount) {
         if (account == null) {
-            Toast.makeText(CartActivity.this, "Chua loginn", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(CartActivity.this, "Chua loginn", Toast.LENGTH_SHORT).show();
+            showDialogCheckLogin();
             bankAccountIsExist = false;
             return;
         } else if (bankAccount == null) {
-            Toast.makeText(CartActivity.this, "Ban chua co tai khoan thanh toan", Toast.LENGTH_SHORT).show();
+            showDialogBankAccount();
+//            Toast.makeText(CartActivity.this, "Ban chua co tai khoan thanh toan", Toast.LENGTH_SHORT).show();
             bankAccountIsExist = false;
         } else if (bankAccount != null) {
             float accMoney = bankAccount.getAccMoney();
             if (accMoney == 0 || accMoney < totalMoney) {
-                Toast.makeText(CartActivity.this, "Tai khoan thanh toan cua ban khong du", Toast.LENGTH_SHORT).show();
+                showDialogNotsuccess();
+//                Toast.makeText(CartActivity.this, "Tai khoan thanh toan cua ban khong du", Toast.LENGTH_SHORT).show();
                 bankAccountIsExist = false;
             }
         }
@@ -269,7 +267,7 @@ public class CartActivity extends MasterActivity {
             @Override
             protected void onPostExecute(Boolean aVoid) {
                 if (aVoid) {
-                    Toast.makeText(CartActivity.this, "Deleted", Toast.LENGTH_LONG).show();
+
                 }
             }
         }
@@ -282,12 +280,12 @@ public class CartActivity extends MasterActivity {
     public void loadBankAccount() {
         Account account = MainActivity.account;
         if (account == null) {
-            txtAmountcart.setText(" 0 Dong");
+            txtAmountcart.setText("Bạn chưa đăng nhập!");
         } else {
             BankAccount bankAccount = MainActivity.bankAccount;
 
             if (bankAccount == null) {
-                txtAmountcart.setText(" 0 Dong");
+                txtAmountcart.setText("Bạn chưa có tài khoản!");
                 return;
             }
 
@@ -295,9 +293,7 @@ public class CartActivity extends MasterActivity {
             txtAmountcart.setText("$ " + amount + " Dong");
         }
 
-
     }
-
 
 
     private void displayNotification() {
@@ -306,12 +302,12 @@ public class CartActivity extends MasterActivity {
         buider.setContentText("Đặt hàng thành công!");
         buider.setTicker("Message Alert");
         buider.setSmallIcon(R.drawable.ic_notifications_black_24dp);
-        buider.setNumber(numMsg);
+        buider.setNumber(++numMsg);
 
-        Intent intent = new Intent(this, ResultActivity.class);
+        Intent intent = new Intent(this, CartActivity.class);
 
         TaskStackBuilder stack = TaskStackBuilder.create(this);
-        stack.addParentStack(ResultActivity.class);
+        stack.addParentStack(CartActivity.class);
         stack.addNextIntent(intent);
 
         PendingIntent pending = stack.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
@@ -320,6 +316,102 @@ public class CartActivity extends MasterActivity {
         manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         manager.notify(NotificationId, buider.build());
 
+    }
+
+    public void showDialogCheckLogin() {
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+        builder1.setMessage("Bạn chưa đăng nhập. Đăng nhập để mua hàng?");
+
+        builder1.setCancelable(true);
+
+        builder1.setPositiveButton(
+                "Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent intent = new Intent(CartActivity.this, LoginActivity.class);
+                        startActivityForResult(intent,2222);
+                    }
+                });
+
+        builder1.setNegativeButton(
+                "No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
+    public void showDialogBankAccount() {
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+        builder1.setMessage("Ví của bạn không đủ để thanh toán!");
+
+        builder1.setCancelable(true);
+
+        builder1.setPositiveButton(
+                "Ok",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        return;
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
+
+    public void showDialogNotsuccess() {
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+        builder1.setMessage("Bạn chưa có ví để thành toán!");
+
+        builder1.setCancelable(true);
+
+        builder1.setPositiveButton(
+                "Ok",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        return;
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
+
+    public void showDialogCreateOrderOK() {
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+        builder1.setMessage("Bạn đã mua hàng thành công!");
+        builder1.setCancelable(true);
+        builder1.setPositiveButton(
+                "Ok",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
+
+    public void showDialog(String msg){
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+        builder1.setMessage(msg);
+        builder1.setCancelable(true);
+        builder1.setPositiveButton(
+                "Ok",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
     }
 
 

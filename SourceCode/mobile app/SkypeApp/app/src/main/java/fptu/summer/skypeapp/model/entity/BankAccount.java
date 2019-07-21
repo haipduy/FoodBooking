@@ -33,6 +33,15 @@ public class BankAccount implements Serializable {
     public BankAccount() {
     }
 
+    public BankAccount(String userId, String accName, int accCardNo, float accMoney, String expiredDate, int isActive) {
+        this.userId = userId;
+        this.accName = accName;
+        this.accCardNo = accCardNo;
+        this.accMoney = accMoney;
+        this.expiredDate = expiredDate;
+        this.isActive = isActive;
+    }
+
     public int getBankId() {
         return bankId;
     }

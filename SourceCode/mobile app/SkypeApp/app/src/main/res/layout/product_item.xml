@@ -28,26 +28,26 @@
             android:orientation="vertical">
 
             <TextView
+                android:singleLine="true"
                 android:id="@+id/txtProductName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLines="1"
                 android:ellipsize="end"
                 android:textSize="16dp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
+                android:singleLine="true"
                 android:id="@+id/txtStoreName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLines="1"
                 android:ellipsize="end"
+                android:maxLines="1"
                 android:textSize="14dp"
                 android:textStyle="italic" />
 
             <LinearLayout
-                android:layout_gravity="fill"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="30sp"
                 android:orientation="horizontal">
 
@@ -69,8 +69,13 @@
                     android:text="demo"
                     android:textSize="14sp"
                     android:textStyle="italic" />
-            </LinearLayout>
 
+                <TextView
+                    android:paddingRight="16dp"
+                    android:drawableRight="@drawable/ic_addtocart"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
 
         </LinearLayout>
 

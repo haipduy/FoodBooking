@@ -7,13 +7,6 @@
     android:orientation="vertical"
     tools:context=".view.CartActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolBar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="2dp">
-    </android.support.v7.widget.Toolbar>
     <LinearLayout
         android:background="@color/colorCam"
         android:orientation="vertical"
@@ -27,16 +20,34 @@
             android:layout_height="wrap_content"
             android:background="@color/colorCam"
             android:drawableTop="@drawable/ic_bank_building" />
-        <TextView
-            android:gravity="center"
-            android:id="@+id/txtAmountCart"
-            android:paddingBottom="10dp"
-            android:textStyle="normal"
-            android:background="@color/colorCam"
-            android:textColor="@color/colorWhile"
-            android:text="0 đ"
+        <LinearLayout
+            android:orientation="horizontal"
+            android:weightSum="3"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_weight="2"
+                android:gravity="right"
+                android:paddingBottom="10dp"
+                android:textStyle="normal"
+                android:background="@color/colorCam"
+                android:textColor="@color/colorWhile"
+                android:text="Ví của bạn :"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_weight="1"
+                android:gravity="center"
+                android:id="@+id/txtAmountCart"
+                android:paddingBottom="10dp"
+                android:textStyle="normal"
+                android:background="@color/colorCam"
+                android:textColor="@color/colorWhile"
+                android:text="Bạn chưa có tài khoản"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
     </LinearLayout>
 
     <ScrollView
@@ -62,7 +73,7 @@
         android:textSize="12dp"
         android:id="@+id/txtNotes"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="80dp"
         android:hint="Notes:"/>
 
     <LinearLayout
@@ -75,14 +86,14 @@
             android:layout_height="wrap_content">
             <TextView
                 android:textSize="14dp"
-                android:text="Total: "
+                android:text="Thành tiền: "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
                 android:textSize="16dp"
                 android:textStyle="bold"
                 android:id="@+id/total"
-                android:text="$100 "
+                android:text="$0 "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -102,14 +113,7 @@
                 android:onClick="clicktoSubmitOrder"/>
         </LinearLayout>
     </LinearLayout>
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        app:menu="@menu/bottom_toolbar"
-        app:itemIconSize="28dp"
-        app:itemBackground="@color/white"/>
+
 
 
 </LinearLayout>

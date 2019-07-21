@@ -2,8 +2,11 @@ package fptu.summer.skypeapp.view.adapter;
 
 import android.content.Context;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +24,8 @@ import fptu.summer.skypeapp.view.CartActivity;
 import fptu.summer.skypeapp.R;
 import fptu.summer.skypeapp.model.entity.Cart;
 import fptu.summer.skypeapp.database.CartDatabase;
+import fptu.summer.skypeapp.view.LoginActivity;
+import fptu.summer.skypeapp.view.ProfileActivity;
 
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolderCart> {
@@ -70,16 +75,17 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolderCart
         void setData(final Cart cart) {
 
             txtProductName.setText(cart.productName);
-            txtPriceDis.setText(cart.price + "");
+            txtPriceDis.setText(cart.price + "00");
             btnQuantity.setNumber(cart.quantity + "");
 
             //delete item from cart
             btnRemoveItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    deleteItem(cart);
-                    listCart.remove(cart);
-                    notifyDataSetChanged();
+//                    deleteItem(cart);
+                    showDialogDeleteItemfromCart(cart);
+//                    listCart.remove(cart);
+//                    notifyDataSetChanged();
                     context.udpatePrice(listCart);
 
                 }
@@ -124,13 +130,57 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolderCart
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
-                if(aVoid != null){
-                    Toast.makeText(context, "Deleted", Toast.LENGTH_LONG).show();
+                if(aVoid == null){
+                    listCart.remove(cart);
+                    notifyDataSetChanged();
+                    showDialogDeleteItemSuccess();
                 }
             }
         }
         DeleteItem dt = new DeleteItem();
         dt.execute();
+    }
+
+    public void showDialogDeleteItemfromCart(final Cart cart) {
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
+        builder1.setMessage("Bạn muốn xóa item khỏi giỏ hàng?");
+
+        builder1.setCancelable(true);
+
+        builder1.setPositiveButton(
+                "Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        deleteItem(cart);
+                    }
+                });
+
+        builder1.setNegativeButton(
+                "No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
+
+    public void showDialogDeleteItemSuccess() {
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
+        builder1.setMessage("Đã xóa thành công!");
+        builder1.setCancelable(true);
+        builder1.setNegativeButton(
+                "Ok",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
     }
 
 

@@ -2,6 +2,7 @@ package fptu.summer.skypeapp.utils;
 
 import fptu.summer.skypeapp.service.AccountService;
 import fptu.summer.skypeapp.service.BankService;
+import fptu.summer.skypeapp.service.DetailOrderService;
 import fptu.summer.skypeapp.service.OrderService;
 import fptu.summer.skypeapp.service.ProductService;
 
@@ -17,5 +18,8 @@ public class APIUtils {
     }
     public static BankService bankService(){
         return  RetrofitClient.getClient().create(BankService.class);
+    }
+    public static DetailOrderService getDetailOrderService(){
+        return  RetrofitClient.getClient().create(DetailOrderService.class);
     }
 }

@@ -1,5 +1,6 @@
 package fptu.summer.skypeapp.view;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Date;
@@ -29,6 +31,7 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private TextView txtSignUp;
     EditText edtUsername, edtPassword;
     Button btnLogin, btnCancel;
     AccountService accountService;
@@ -46,12 +49,30 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_layout);
+        initView();
+        initData();
+//        data = (String) getIntent().getSerializableExtra(BundleString.BUNDLE_QR_CODE);
+
+    }
+
+    private void initView() {
         edtUsername = findViewById(R.id.edtUsername);
         edtPassword = findViewById(R.id.edtPassword);
         btnLogin = findViewById(R.id.btnLogin);
         ckShowPass = findViewById(R.id.show_hide_password);
-        data = (String) getIntent().getSerializableExtra(BundleString.BUNDLE_QR_CODE);
-        Toast.makeText(getApplicationContext(), data, Toast.LENGTH_SHORT).show();
+        txtSignUp = findViewById(R.id.txtSignUp);
+    }
+    private void initData(){
+        txtSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickToSignUp();
+            }
+        });
+    }
+    public void clickToSignUp(){
+        Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+        startActivity(intent);
     }
 
 
@@ -149,4 +170,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }

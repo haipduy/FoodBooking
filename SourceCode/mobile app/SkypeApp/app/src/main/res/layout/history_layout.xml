@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         card_view:cardCornerRadius="4dp">
         <LinearLayout
+            android:id="@+id/containerHistory"
             android:layout_margin="10sp"
             android:orientation="vertical"
             android:layout_width="match_parent"

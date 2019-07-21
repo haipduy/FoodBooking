@@ -9,29 +9,9 @@
     >
     <eu.livotov.labs.android.camview.ScannerLiveView
         android:layout_weight="1"
-        android:layout_margin="16dp"
         android:id="@+id/camView"
         android:layout_width="match_parent"
         android:layout_height="0dp">
     </eu.livotov.labs.android.camview.ScannerLiveView>
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/txtAmountQRcode"
-            android:text="Mệnh giá : 0"
-            android:layout_margin="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <Button
-            android:id="@+id/btnNapTien"
-            android:layout_margin="16dp"
-            android:text="Nạp tiền"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="clickToNapTien"/>
-    </LinearLayout>
-
 
 </LinearLayout>

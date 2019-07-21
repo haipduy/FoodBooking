@@ -10,4 +10,9 @@ import retrofit2.http.POST;
 public interface AccountService {
     @POST("account/login")
     Call<Account> checkLogin(@Body Map<String, String> params);
+
+    @POST("accounts")
+    Call<Account> registerAccount(@Body Account account);
+
+
 }

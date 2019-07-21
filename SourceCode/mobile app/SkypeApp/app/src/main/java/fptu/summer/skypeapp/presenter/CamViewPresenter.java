@@ -35,7 +35,6 @@ public class CamViewPresenter {
             public void onResponse(Call<BankAccount> call, Response<BankAccount> response) {
                 if (response.isSuccessful()) {
                     MainActivity.bankAccount = response.body();
-                    Toast.makeText(context, "Đã nộp thành công!", Toast.LENGTH_SHORT).show();
                 }
             }
 

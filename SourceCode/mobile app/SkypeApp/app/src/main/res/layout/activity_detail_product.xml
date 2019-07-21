@@ -6,16 +6,20 @@
     android:orientation="vertical"
     android:weightSum="1">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolBar"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"></android.support.v7.widget.Toolbar>
+        android:layout_height="wrap_content"
+        android:background="@color/colorCam"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="Item"
+        android:textColor="@color/white"
+        android:textSize="18dp" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -24,121 +28,196 @@
             <ImageView
                 android:id="@+id/imgProduct"
                 android:layout_width="match_parent"
-                android:layout_height="237dp"
-                android:layout_margin="16dp"
-
+                android:layout_height="253dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
                 android:src="@drawable/pic1" />
 
             <LinearLayout
-                android:layout_margin="16dp"
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtPriceDiscount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Price Discount"
+                    android:textColor="@color/colorRed"
+                    android:textSize="20dp" />
+                <TextView
+                    android:id="@+id/txtPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="price" />
+
+
+                <TextView
+                    android:layout_marginTop="16dp"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:id="@+id/txtProductName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Product name" />
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:id="@+id/txtPrice"
+                        android:drawableStart="@drawable/ic_startyello"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="price"
-                        android:textSize="16dp" />
+                        android:layout_height="wrap_content" />
                     <TextView
-                        android:paddingLeft="15dp"
-                        android:id="@+id/txtPriceDiscount"
+                        android:drawableStart="@drawable/ic_startyello"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Price Discount"
-                        android:textColor="@color/colorRed"
-                        android:textSize="20dp" />
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:drawableStart="@drawable/ic_startyello"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:drawableStart="@drawable/ic_startyello"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:drawableStart="@drawable/ic_start"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="1px"
-                    android:background="@color/white_greyish" />
 
-                <TextView
-                    android:id="@+id/txtProductName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Product name"
-                    android:textSize="24dp" />
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="1px"
-                    android:background="@color/white_greyish" />
-
-                <TextView
-                    android:id="@+id/txtStore"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Store"
-                    android:textSize="18dp" />
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="1px"
-                    android:background="@color/white_greyish" />
-
-                <TextView
-                    android:id="@+id/txtDescription"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Description"
-                    android:textSize="18dp" />
             </LinearLayout>
+
+            <View
+                android:layout_margin="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/white_greyish" />
+            <TextView
+                android:textStyle="bold"
+                android:layout_marginLeft="16dp"
+                android:layout_marginBottom="6dp"
+                android:text="Thong tin chi tiet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_marginLeft="26dp"
+                android:layout_marginRight="16dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:weightSum="2"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:text="Tên cửa hàng"
+                            android:layout_weight="1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:text="Được làm tại  "
+                            android:layout_weight="1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:text="Xuất xứ"
+                            android:layout_weight="1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/txtStore"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Store" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Việt Nam" />
+                        <TextView
+                            android:text="Việt Nam"
+                            android:layout_weight="1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_marginTop="16dp"
+                android:layout_margin="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/white_greyish" />
+            <TextView
+                android:textStyle="bold"
+                android:layout_marginLeft="16dp"
+                android:layout_marginBottom="6dp"
+                android:text="Mo ta san pham"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginLeft="26dp"
+                android:layout_marginRight="16dp"
+                android:id="@+id/txtDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Description" />
 
         </LinearLayout>
 
     </ScrollView>
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:background="@color/white_greyish"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
         android:weightSum="2">
 
         <Button
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:textSize="12dp"
             android:id="@+id/btnAddToCart"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:layout_weight="1"
             android:background="@drawable/corner_button"
             android:onClick="clickToAddToCart"
-            android:text="Add to cart" />
+            android:text="Add to cart"
+            android:textSize="12dp" />
 
         <Button
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:textSize="12dp"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
             android:background="@drawable/corner_button"
             android:onClick="clickToViewCart"
-            android:text="View cart" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom">
-
-        <android.support.design.widget.BottomNavigationView
-            android:id="@+id/bottom_navigation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:paddingTop="5dp"
-            app:itemBackground="@color/white"
-            app:itemIconSize="28dp"
-            app:menu="@menu/bottom_toolbar" />
+            android:text="View cart"
+            android:textSize="12dp" />
     </LinearLayout>
 
 

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/cloudsky"
+    android:padding="20dp">
+    <LinearLayout
+        android:weightSum="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:gravity="center"
+                android:layout_margin="16dp"
+                android:textSize="28dp"
+                android:textColor="@color/white"
+                android:text="Register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/edtBanlkFullName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/ic_user_50"
+                android:drawablePadding="16dp"
+                android:gravity="center_vertical"
+                android:hint="Your Name"
+                android:padding="16dp"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="18sp" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1px"
+                android:background="@color/white_greyish" />
+
+            <EditText
+                android:id="@+id/edtBankNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/icons8_numbers_input_form_50"
+                android:drawablePadding="16dp"
+                android:gravity="center_vertical"
+                android:hint="Cart Number"
+                android:padding="16dp"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="18sp" />
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1px"
+                android:background="@color/white_greyish" />
+
+
+
+            <EditText
+                android:editable="false"
+                android:clickable="true"
+                android:id="@+id/edtBankExpired"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/icons8_date_to_50"
+                android:drawablePadding="16dp"
+                android:hint="Expired Date"
+                android:padding="16dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="18sp" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1px"
+                android:background="@color/white_greyish" />
+        </LinearLayout>
+        <Button
+            android:id="@+id/btnRegisterBank"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_alignStart="@+id/login_layout"
+            android:layout_marginTop="3dp"
+            android:background="@drawable/corner_button"
+            android:onClick="clickToRegisterBank"
+            android:text="Register"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>

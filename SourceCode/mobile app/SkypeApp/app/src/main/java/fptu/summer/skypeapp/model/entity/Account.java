@@ -28,6 +28,15 @@ public class Account implements Serializable {
         this.roleId = roleId;
     }
 
+    public Account(String userId, String userPassword, String userName, String userAddress, int phone, String email) {
+        this.userId = userId;
+        this.userPassword = userPassword;
+        this.userName = userName;
+        this.userAddress = userAddress;
+        this.phone = phone;
+        this.email = email;
+    }
+
     public String getUserId() {
         return userId;
     }

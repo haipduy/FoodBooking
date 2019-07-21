@@ -73,9 +73,11 @@ public class HistoryActivity extends AppCompatActivity implements HistoryView {
         super.onResume();
         refreshViewHistory();
     }
-    public void initHistoryPresenter(){
+
+    public void initHistoryPresenter() {
         historyPresenter = new HistoryPresenter(this);
     }
+
     @Override
     public void displayHistoryList(List<Order> orderList) {
         LinearLayoutManager linearLayoutManager
@@ -85,15 +87,15 @@ public class HistoryActivity extends AppCompatActivity implements HistoryView {
         listOrderView.setAdapter(oAdapter);
     }
 
-    public void refreshViewHistory(){
-        if(MainActivity.account != null){
+    public void refreshViewHistory() {
+        if (MainActivity.account != null) {
             txtViewMore.setVisibility(View.GONE);
-            String id =  MainActivity.account.getUserId();
-            if(id !=null){
+            String id = MainActivity.account.getUserId();
+            if (id != null) {
                 historyPresenter.loadHistory(id);
             }
 
-        }else{
+        } else {
             txtViewMore.setVisibility(View.VISIBLE);
         }
     }
